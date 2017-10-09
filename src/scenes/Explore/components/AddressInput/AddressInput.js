@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const AddressInput = () => (
-  <div id="address-input-container">
-    <input />
-  </div>
-)
+class AddressInput extends Component {
+  static displayName = 'AddressInput'
 
-AddressInput.displayName = 'AddressInput'
+  render = () =>
+    <div id="address-input-container">
+      <input placeholder="0x123456789abcdef" />
+    </div>
+}
 
 export default AddressInput

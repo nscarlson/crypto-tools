@@ -1,9 +1,11 @@
 import { Router } from 'express'
 import React from 'react'
+import { ApolloProvider } from 'react-apollo'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 
 import App from 'components/App'
+import apollo from 'services/apollo'
 import { createStore } from 'services/redux/store'
 
 import Document from './components/Document'
@@ -18,7 +20,9 @@ Render.use(async (req, res) => {
 
   const components = (
     <StaticRouter context={context} location={req.url}>
-      <App />
+      <ApolloProvider client={apollo} store={store}>
+        <App />
+      </ApolloProvider>
     </StaticRouter>
   )
 
