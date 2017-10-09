@@ -23,6 +23,10 @@ $desktop: "screen and (min-width: 1024px)";
   }
 }
 
+body {
+  background-color: rgb(40, 44, 52)
+}
+
 // import styles for components and scenes
 @import "components/components";
 @import "scenes/scenes";
