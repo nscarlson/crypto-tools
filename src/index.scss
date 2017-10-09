@@ -1,0 +1,28 @@
+// define important variables
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$mobile: "screen and (max-width: 639px)";
+$tablet: "screen and (min-width: 640px)";
+$desktop: "screen and (min-width: 1024px)";
+
+// import any service-related styles first
+@import "services/services";
+
+@media #{$mobile} {
+  .tablet {
+    display: none;
+  }
+}
+
+@media #{$tablet} {
+  .mobile {
+    display: none;
+  }
+}
+
+// import styles for components and scenes
+@import "components/components";
+@import "scenes/scenes";

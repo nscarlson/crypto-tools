@@ -1,0 +1,11 @@
+{
+    "compact": false,
+    "env": {
+      "development": {}
+    },
+    "presets": [
+        "env",
+        "react",
+        "stage-0"
+    ]
+}

@@ -1,0 +1,4 @@
+extends:
+  ambidextrous
+globals:
+  fetch: true
