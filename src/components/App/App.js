@@ -2,12 +2,14 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import Layout from './components/Layout'
-import Home from 'scenes/Home'
+import Explore from 'scenes/Explore'
+import Markets from 'scenes/Markets'
 
 const App = () => (
   <Layout>
     <Switch>
-      <Route component={Home} exact path="/" />
+      <Route component={Explore} exact path="/" />
+      <Route component={Markets} exact path="/markets" />
     </Switch>
   </Layout>
 )
