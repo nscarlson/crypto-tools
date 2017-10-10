@@ -537,6 +537,13 @@ babel-plugin-jest-hoist@^21.2.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-21.2.0.tgz#2cef637259bd4b628a6cace039de5fcd14dbb006"
 
+babel-plugin-styled-components@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.2.1.tgz#e1593f2a6a0327e2d156695306e60c4dd175866d"
+  dependencies:
+    babel-types "^6.26.0"
+    stylis "^3.2.1"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -5888,6 +5895,10 @@ style-loader@^0.13.2:
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.13.2.tgz#74533384cf698c7104c7951150b49717adc2f3bb"
   dependencies:
     loader-utils "^1.0.2"
+
+stylis@^3.2.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.3.1.tgz#61dd88335a9a8fdcd9b46cb2db0d909d5e14b226"
 
 superagent@^3.0.0:
   version "3.6.3"
