@@ -23,6 +23,8 @@ $desktop: "screen and (min-width: 1024px)";
   }
 }
 
+* {box-sizing: border-box;}
+
 body {
   background-color: rgb(40, 44, 52);
   font-family: 'Menlo', 'Monaco', 'Courier New', 'monospace'

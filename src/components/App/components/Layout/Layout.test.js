@@ -24,9 +24,6 @@ describe('<Layout />', () => {
   it('renders correctly', () => {
     expect(wrapper.contains(
       <div className="layout">
-        <Switch>
-          <Header />
-        </Switch>
         {props.children}
         <Footer />
       </div>
