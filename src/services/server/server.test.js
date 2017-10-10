@@ -11,12 +11,12 @@ describe('server', () => {
     init = server.init
   })
 
-  it(`inits the server on port 3000`, () => {
+  it(`inits the server on port 8000`, () => {
     jest.spyOn(app, 'listen').mockImplementation((port, cb) => cb())
     jest.spyOn(console, 'log').mockImplementation(() => {})
 
     init()
 
-    expect(app.listen).toHaveBeenCalledWith(3000, expect.anything())
+    expect(app.listen).toHaveBeenCalledWith(8000, expect.anything())
   })
 })
