@@ -3,6 +3,7 @@ import React from 'react'
 import ReactGridLayout from 'react-grid-layout'
 import { Switch } from 'react-router-dom'
 
+import Explore from 'scenes/Explore'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
@@ -15,7 +16,9 @@ const Layout = ({ children }) => (
   <div className="layout">
 
     <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-      <div className="panel" key="a">{'what is happening??'}</div>
+      <div className="panel" key="a">
+        <Explore />
+      </div>
       <div className="panel" key="b">b</div>
       <div className="panel" key="c">c</div>
     </ReactGridLayout>
