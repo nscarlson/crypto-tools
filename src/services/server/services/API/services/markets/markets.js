@@ -1,8 +1,6 @@
 import { Router } from 'express'
 import CryptowatchClient from '../CryptowatchClient'
 
-console.log(CryptowatchClient)
-
 const markets = Router()
 const cryptowatchClient = new CryptowatchClient()
 
@@ -35,7 +33,7 @@ markets.use('/markets/:pair', async (req, res) => {
       pairData = await cryptowatchClient.getPricesByPair(pair)
       res.status(200).json(pairData)
     } catch (err) {
-      console.log('ERROR', err)
+      console.err('ERROR', err)
     }
   } else {
     console.log('one or both currency symbols are invalid')

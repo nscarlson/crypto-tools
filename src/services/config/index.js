@@ -13,6 +13,4 @@ const config = {
   },
 }
 
-console.log(process.env.BM_GRAPHQL_KEY)
-
 module.exports = config[process.env.NODE_ENV] || config.development

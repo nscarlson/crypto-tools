@@ -1,5 +1,6 @@
 import { node } from 'prop-types'
 import React from 'react'
+import ReactGridLayout from 'react-grid-layout'
 import { Switch } from 'react-router-dom'
 
 import Header from './components/Header'
@@ -11,6 +12,7 @@ const Layout = ({ children }) => (
       <Header />
     </Switch>
     {children}
+    <ReactGridLayout />
     <Footer />
   </div>
 )

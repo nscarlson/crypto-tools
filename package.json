@@ -1,5 +1,5 @@
 {
-  "name": "best-markets",
+  "name": "crypto-tools",
   "version": "0.0.1",
   "description": "Find the best markets for cryptocurrencies",
   "main": "src/services/server/server.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nscarlson/best-markets.git"
+    "url": "git+https://github.com/nscarlson/crypto-tools.git"
   },
   "keywords": [
     "Node",
@@ -26,10 +26,11 @@
   "author": "https://github.com/nscarlson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nscarlson/best-markets/issues"
+    "url": "https://github.com/nscarlson/crypto-tools/issues"
   },
   "dependencies": {
     "ajv": "^4.10.0",
+    "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "graphql": "^0.9.0",
