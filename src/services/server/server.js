@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 
 import API from './services/API'
@@ -7,8 +8,8 @@ import StaticFiles from './services/StaticFiles'
 
 const app = express()
 
+app.use(cors())
 app.use(API)
-
 app.use(HMR)
 app.use(StaticFiles)
 app.use(Render)
