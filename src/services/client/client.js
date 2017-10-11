@@ -1,6 +1,6 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { hydrate } from 'react-dom'
+import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ const init = () => {
   const store = createStore(window.__INITIAL_STATE__)
 
   const doRender = (App) => {
-    hydrate(
+    render(
       <AppContainer>
         <BrowserRouter>
           <ApolloProvider client={apollo} store={store}>

@@ -7,8 +7,15 @@ class Explore extends Component {
 
   render = () =>
     <div id="explore-container">
-      <span className="title" style={{ padding: '4px' }}>This is a title</span>
+      <div className="title">
+        <span className="title">Search Address</span>
+      </div>
       <AddressInput />
+      <table>
+        <thead>
+          <td>Transaction</td><td>Confirmations</td><td>Amount</td>
+        </thead>
+      </table>
     </div>
 }
 

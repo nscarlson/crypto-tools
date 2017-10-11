@@ -1,5 +1,6 @@
 @import 'components/Footer/Footer';
 @import 'components/Header/Header';
+@import 'components/Grid/Grid';
 
 .react-grid-layout {
   position: relative;
@@ -8,7 +9,6 @@
   
 .react-grid-item {
   background-color:rgb(51, 56, 66);
-  border-radius: 4px;
   transition: all 200ms ease;
   transition-property: left, top;
   padding: 4px;
