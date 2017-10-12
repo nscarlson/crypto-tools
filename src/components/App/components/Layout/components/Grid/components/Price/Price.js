@@ -1,6 +1,8 @@
 import { object } from 'prop-types'
 import React, { Component } from 'react'
 
+import ExchangePrice from './components/ExchangePrice'
+
 class Price extends Component {
   static displayName = 'Price'
 
@@ -16,10 +18,8 @@ class Price extends Component {
     console.log(this.props.data)
     return (
       <div>
-        {this.props.data.allPrices.map(({ id }) => (
-          <div key={id}>
-            {id}
-          </div>
+        {this.props.data.allPrices.map(({ id, exchange, price }) => (
+          <ExchangePrice exchange={exchange} key={id} price={price} />
        ))}
         <span className="price-text">{'usd price: '}</span>
         <span className="price-positive">{'1.2%'}</span>

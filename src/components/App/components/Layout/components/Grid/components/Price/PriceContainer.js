@@ -1,12 +1,9 @@
 import { graphql } from 'react-apollo'
 
-import { btcPrices } from 'services/queries/prices'
-
-console.log(btcPrices)
-
+import { latestBtcPricesQuery } from 'services/queries/prices'
 import Price from './Price'
 
-const PriceContainer = graphql(btcPrices)(Price)
+const PriceContainer = graphql(latestBtcPricesQuery)(Price)
 
 PriceContainer.displayName = 'PriceContainer'
 

@@ -1,12 +1,13 @@
 import { gql } from 'react-apollo'
 
-const btcPrices = gql`
-  query getBtcPrices {
+const latestBtcPricesQuery = gql`
+  query latestBtcPricesQuery {
     allPrices {
       id
+      exchange
       price
     }
   }
 `
 
-export { btcPrices }
+export { latestBtcPricesQuery }
