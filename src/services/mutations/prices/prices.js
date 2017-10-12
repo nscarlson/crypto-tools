@@ -1,7 +1,7 @@
 import { gql } from 'react-apollo'
 
 const createPrice = gql`
-  mutation createPrice($exchange String!, $price Float!, $symbol String!, $timestamp Int!) {
+  mutation createPrice($exchange: String!, $price: Float!, $symbol: String!, $timestamp: Int!) {
     createPrice (
       exchange: $exchange,
       price: $price,

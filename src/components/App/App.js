@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
 import { Route, Switch } from 'react-router-dom'
 
 import Layout from './components/Layout'
 import Explore from 'scenes/Explore'
 import Markets from 'scenes/Markets'
+import { createPrice } from 'services/mutations/prices'
 
 class App extends Component {
   static displayName = 'App'
@@ -19,9 +21,6 @@ class App extends Component {
 
   refreshPrices = async () => {
     let krakenBtcPrices = null
-    let gdaxBtcPrices = null
-    let geminiBtcPrices = null
-    let poloniexBtcPrices = null
 
     const markets = [ 'kraken', 'gdax', 'gemini', 'poloniex' ]
 
@@ -59,4 +58,4 @@ class App extends Component {
   )
 }
 
-export default App
+export default graphql(createPrice)(App)
