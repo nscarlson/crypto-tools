@@ -8,6 +8,8 @@ class Price extends Component {
   render = () => (
     <div>
       <ExchangePrice exchange="poloniex" />
+      <ExchangePrice exchange="gemini" />
+      <ExchangePrice exchange="bitstamp" />
 
       <span className="price-text">{'usd price: '}</span>
       <span className="price-positive">{'1.2%'}</span>
@@ -15,7 +17,5 @@ class Price extends Component {
     </div>
   )
 }
-
-Price.displayName = 'Price'
 
 export default Price
