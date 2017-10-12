@@ -1,4 +1,3 @@
-import { object } from 'prop-types'
 import React, { Component } from 'react'
 
 import ExchangePrice from './components/ExchangePrice'
@@ -6,27 +5,15 @@ import ExchangePrice from './components/ExchangePrice'
 class Price extends Component {
   static displayName = 'Price'
 
-  static propTypes = {
-    data: object,
-  }
+  render = () => (
+    <div>
+      <ExchangePrice exchange="poloniex" />
 
-  render = () => {
-    if (this.props.data.loading) {
-      return (<div>{'LOADING'}</div>)
-    }
-    console.log('data')
-    console.log(this.props.data)
-    return (
-      <div>
-        {this.props.data.allPrices.map(({ id, exchange, price }) => (
-          <ExchangePrice exchange={exchange} key={id} price={price} />
-       ))}
-        <span className="price-text">{'usd price: '}</span>
-        <span className="price-positive">{'1.2%'}</span>
-        <div className="arrow-up" />
-      </div>
-    )
-  }
+      <span className="price-text">{'usd price: '}</span>
+      <span className="price-positive">{'1.2%'}</span>
+      <div className="arrow-up" />
+    </div>
+  )
 }
 
 Price.displayName = 'Price'

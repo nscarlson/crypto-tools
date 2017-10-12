@@ -10,7 +10,7 @@ class App extends Component {
 
   componentDidMount = () => {
     const intervalId = setInterval(this.refreshPrices, 5000)
-    this.setState({ intervalId: intervalId })
+    this.setState({ intervalId })
   }
 
   componentWillUnmount = () => {

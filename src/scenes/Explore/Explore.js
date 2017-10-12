@@ -12,9 +12,8 @@ class Explore extends Component {
       </div>
       <AddressInput />
       <table>
-        <thead>
-          <td>Transaction</td><td>Confirmations</td><td>Amount</td>
-        </thead>
+        <tbody><tr><td>TEST</td></tr></tbody>
+
       </table>
     </div>
 }
