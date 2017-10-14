@@ -10,7 +10,7 @@
     "dev": "NODE_ENV=development yarn build && yarn start",
     "lint": "eslint *.js src",
     "start": "node private/server.js",
-    "test": "jest -c jest.json",
+    "test": "jest -c jest.json --setupTestFrameworkScriptFile ./src/setupTests.js",
     "test-clean": "yarn test -- --no-cache"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
     "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
     "express": "^4.15.2",
     "graphql": "^0.9.0",
     "history": "^4.6.0",
@@ -42,7 +43,7 @@
     "node-sass": "^4.5.1",
     "prop-types": "^15.5.8",
     "react": "^15.6.2",
-    "react-apollo": "^1.4.2",
+    "react-apollo": "^1.4.16",
     "react-autosize-textarea": "^0.4.6",
     "react-dom": "^15.6.2",
     "react-grid-layout": "^0.16.0",
