@@ -19,5 +19,6 @@
   },
   "modulePaths": [
     "src"
-  ]
+  ],
+  "setupTestFrameworkScriptFile": "./src/setupTests.js"
 }

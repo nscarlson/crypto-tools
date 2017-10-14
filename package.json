@@ -10,7 +10,7 @@
     "dev": "NODE_ENV=development yarn build && yarn start",
     "lint": "eslint *.js src",
     "start": "node private/server.js",
-    "test": "jest -c jest.json --setupTestFrameworkScriptFile ./src/setupTests.js",
+    "test": "jest -c jest.json",
     "test-clean": "yarn test -- --no-cache"
   },
   "repository": {
