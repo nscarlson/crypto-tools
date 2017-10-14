@@ -3,7 +3,6 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 import ClientStyles from './components/ClientStyles'
-import GoogleAnalytics from './components/GoogleAnalytics'
 import Viewport from './components/Viewport'
 
 import Head from './Head'
@@ -34,7 +33,6 @@ describe('<Head />', () => {
         {link.toComponent()}
         {script.toComponent()}
 
-        <GoogleAnalytics />
         <ClientStyles />
         <Viewport />
       </head>

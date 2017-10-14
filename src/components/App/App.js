@@ -21,6 +21,9 @@ class App extends Component {
 
   refreshPrices = async () => {
     let krakenBtcPrices = null
+    let gdaxBtcPrices = null
+    let geminiBtcPrices = null
+    let poloniexBtcPrices = null
 
     const markets = [ 'kraken', 'gdax', 'gemini', 'poloniex' ]
 
@@ -40,12 +43,20 @@ class App extends Component {
 
     try {
       // Fetch 15-minute intervals from cryptowat.ch
-      result = (await (await fetch(`https://api.cryptowat.ch/markets/${exchange}/btcusd/ohlc`)).json()).result['60']
+      result = (await (await fetch(`https://api.cryptowat.ch/markets/${exchange}/btcusd/ohlc?periods=900&after=${Math.ceil(new Date().getTime() / 1000) - 2700}`)).json()).result['60']
     } catch (err) {
       console.error(err)
     }
 
-    return result
+    this.createBtcPrice(exchange)
+  }
+
+  createBtcPrice = async (exchange) => {
+    try {
+
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   render = () => (

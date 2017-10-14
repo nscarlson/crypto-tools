@@ -11,9 +11,6 @@ class Price extends Component {
       <ExchangePrice exchange="kraken" pair="btcusd" />
       <ExchangePrice exchange="poloniex" pair="btcusd" />
       <ExchangePrice exchange="gemini" pair="btcusd" />
-
-      <span className="price-text">{'usd price: '}</span>
-      <span className="price-positive">{'1.2%'}</span>
       <div className="arrow-up" />
     </div>
   )

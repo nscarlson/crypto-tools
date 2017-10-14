@@ -8,18 +8,15 @@ import Price from './components/Grid/components/Price'
 const ReactGridLayout = WidthProvider(RGL)
 
 const layout = [
-  { i: 'price', x: 0, y: 0, w: 12, h: 2, static: true },
+  { i: 'price', x: 0, y: 0, w: 12, h: 4, static: true },
   { i: 'menu', x: 0, y: 1, w: 2, h: 10, static: true },
   { i: 'explore', x: 2, y: 2, w: 12, h: 20 },
 ]
 const Layout = ({ children }) => (
-  <div>
+  <div className="layout">
     <ReactGridLayout layout={layout} cols={12} rowHeight={15} width={1200}>
-      <div key="menu">
-        <i aria-hidden="true" className="fa fa-plus-circle" />
-        {'New Address box'}
-      </div>
       <div key="price">
+        <div className="title"><span className="title">{'title'}</span></div>
         <Price />
       </div>
       <div key="explore">

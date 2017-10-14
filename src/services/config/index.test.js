@@ -1,16 +1,8 @@
 /* eslint-disable sort-keys */
 
-describe('liiist-config', () => {
+describe('config', () => {
   beforeEach(() => {
     jest.resetModules()
-  })
-
-  it('defaults to the development config', () => {
-    const config = require('./index')
-
-    expect(config).toEqual({
-      BM_GRAPHQL_TOKEN: process.env.BM_GRAPHQL_TOKEN,
-    })
   })
 
   it('defines the correct development config', () => {
@@ -19,7 +11,7 @@ describe('liiist-config', () => {
     const config = require('./index')
 
     expect(config).toEqual({
-      BM_GRAPHQL_KEY: process.env.BM_GRAPHQL_TOKEN,
+      CRYPTOWATCH_BASE_URI: 'https://api.cryptowat.ch',
     })
   })
 
@@ -29,7 +21,7 @@ describe('liiist-config', () => {
     const config = require('./index')
 
     expect(config).toEqual({
-      BM_GRAPHQL_KEY: process.env.BM_GRAPHQL_TOKEN,
+      CRYPTOWATCH_BASE_URI: 'https://api.cryptowat.ch',
     })
   })
 })

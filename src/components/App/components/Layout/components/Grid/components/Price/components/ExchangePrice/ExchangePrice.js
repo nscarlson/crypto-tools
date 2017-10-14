@@ -9,15 +9,15 @@ class ExchangePrice extends Component {
 
   render = () => {
     if (this.props.data.loading) {
-      return (<div>Loading</div>)
+      return (<div>{this.props.exchange} ...</div>)
     }
 
-    const latestPrice = this.props.data.allPrices[0]
+    const latestPrice = this.props.data.allPrices[0].exchange ? this.props.data.allPrices[0] : null
+    const latestClosingPrice = latestPrice && latestPrice.ohlc ? latestPrice.ohlc[0] : '...'
     const exchange = this.props.exchange
-    console.log(latestPrice)
 
     return (
-      <div className="exchange-price">{`${exchange} ${latestPrice.price}`}</div>
+      <div className="exchange-price">{`${exchange} ${latestClosingPrice}`}</div>
     )
   }
 }
@@ -28,5 +28,5 @@ ExchangePrice.propTypes = {
 }
 
 export default graphql(latestBtcPricesQuery, {
-  options: ({ exchange }) => ({ variables: { exchange } }),
+  options: ({ exchange, pair }) => ({ variables: { exchange, pair } }),
 })(ExchangePrice)
