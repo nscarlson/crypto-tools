@@ -1,4 +1,4 @@
-import { init, m } from './client'
+import { init } from './client'
 
 jest.mock('react-dom')
 

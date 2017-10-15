@@ -2,19 +2,21 @@ import { gql } from 'react-apollo'
 
 const createPrice = gql`
   mutation createPrice(
-    $exchange: String!
+    $exchangeId: String!
     $price: Float!
     $symbol: String!
     $timestamp: Int!
   ) {
     createPrice (
-      exchange: $exchange,
+      exchangeId: $exchangeId,
       price: $price,
       symbol: $symbol,
       timestamp: $timestamp
     ) {
       id
-      exchange
+      exchange {
+        name
+      }
       symbol
       price
       timestamp

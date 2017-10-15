@@ -1,4 +1,3 @@
-import Adapter from 'enzyme-adapter-react-15'
 import { shallow } from 'enzyme'
 import React from 'react'
 import RGL, { WidthProvider } from 'react-grid-layout'

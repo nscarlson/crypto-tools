@@ -3,13 +3,14 @@ import { object, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import { latestBtcPricesQuery } from 'services/queries/prices'
+import Spinner from 'components/Spinner'
 
 class ExchangePrice extends Component {
   static displayName = 'ExchangePrice'
 
   render = () => {
     if (this.props.data.loading) {
-      return (<div>{this.props.exchange} ...</div>)
+      return (<div className="exchange-price">{this.props.exchange} <Spinner /></div>)
     }
 
     const latestPrice = this.props.data.allPrices[0].exchange ? this.props.data.allPrices[0] : null
