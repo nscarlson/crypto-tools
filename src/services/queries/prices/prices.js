@@ -1,24 +1,24 @@
 import { gql } from 'react-apollo'
 
 const latestBtcPricesQuery = gql`
-  query latestBtcPricesQuery($exchange: String!, $pair: String!) {
+  query latestBtcPricesQuery(
+    $exchange: String!
+  ) {
     allPrices(
-      last: 1
-      orderBy: timestamp_ASC
+      last: 5
       filter: {
-        pair: $pair
-      }
-    ) {
-      id
-      exchange(
-        filter: {
+        exchange: {
           name: $exchange
         }
-      ) {
+      }
+      orderBy: timestamp_ASC
+    ) {
+      id
+      exchange {
         name
       }
-      ohlc
       timestamp
+      ohlc
     }
   }
 `

@@ -8,26 +8,27 @@ import Spinner from 'components/Spinner'
 class ExchangePrice extends Component {
   static displayName = 'ExchangePrice'
 
+  static propTypes = {
+    data: object,
+    exchange: string,
+  }
+
   render = () => {
     if (this.props.data.loading) {
       return (<div className="exchange-price">{this.props.exchange} <Spinner /></div>)
     }
 
-    const latestPrice = this.props.data.allPrices[0].exchange ? this.props.data.allPrices[0] : null
-    const latestClosingPrice = latestPrice && latestPrice.ohlc ? latestPrice.ohlc[0] : '...'
-    const exchange = this.props.exchange
+    console.log('price data:')
+    console.log(this.props.data.allPrices)
+
+    const latestPrice = this.props.data.allPrices[0].ohlc[4]
 
     return (
-      <div className="exchange-price">{`${exchange} ${latestClosingPrice}`}</div>
+      <div className="exchange-price">{`${this.props.exchange} ${latestPrice}`}</div>
     )
   }
 }
 
-ExchangePrice.propTypes = {
-  data: object,
-  exchange: string,
-}
-
 export default graphql(latestBtcPricesQuery, {
-  options: ({ exchange, pair }) => ({ variables: { exchange, pair } }),
+  options: ({ exchange }) => ({ variables: { exchange } }),
 })(ExchangePrice)
