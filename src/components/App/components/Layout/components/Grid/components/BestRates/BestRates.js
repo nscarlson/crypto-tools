@@ -59,12 +59,10 @@ class BestRates extends Component {
         {'I want to exchange'}
         <Select
           options={this.state.options}
-          value="btc"
         />
         {'for'}
         <Select
           options={this.state.options}
-          value="btc"
         />
 
       </div>
