@@ -18,13 +18,11 @@ class ExchangePrice extends Component {
       return (<div className="exchange-price">{this.props.exchange} <Spinner /></div>)
     }
 
-    console.log('price data:')
-    console.log(this.props.data.allPrices)
-
+    const exchange = this.props.exchange
     const latestPrice = this.props.data.allPrices[0].ohlc[4]
 
     return (
-      <div className="exchange-price">{`${this.props.exchange} ${latestPrice}`}</div>
+      <div className="exchange-price">{`${exchange} ${latestPrice}`}</div>
     )
   }
 }
