@@ -33,7 +33,16 @@ class BestRates extends Component {
 
     assets.map((asset) => {
       options.push({
-        label: asset.name,
+        label: <span style={{ textAlign: 'middle' }}>
+          <img
+            src={`https://coincap.io/images/coins/${asset.name}.png`}
+            height={30}
+            width={30}
+            style={{ verticalAlign: 'middle' }}
+          />
+          <span>{`${asset.name} (${asset.id})`}</span>
+
+        </span>,
         value: asset.id,
       })
     })
