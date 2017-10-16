@@ -6,7 +6,8 @@ class BestRates extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectedOption: 'btc',
+      selectedFromOption: 'btc',
+      selectedToOption: 'eth',
     }
     this.loadAssets()
   }
@@ -49,6 +50,19 @@ class BestRates extends Component {
     return result
   }
 
+  handleFromSelection = (value) => {
+    console.log('handleFromSelection()')
+    this.setState({
+      selectedFromOption: value,
+    })
+  }
+
+  handleToSelection = (value) => {
+    this.setState({
+      selectedToOption: value,
+    })
+  }
+
   render = () => (
     <div>
       <div className="title">
@@ -58,11 +72,15 @@ class BestRates extends Component {
       <div>
         {'I want to exchange'}
         <Select
+          onChange={this.handleFromSelection}
           options={this.state.options}
+          value={this.state.selectedFromOption}
         />
         {'for'}
         <Select
+          onChange={this.handleToSelection}
           options={this.state.options}
+          value={this.state.selectedToOption}
         />
 
       </div>

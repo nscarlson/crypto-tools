@@ -10,10 +10,9 @@ const ReactGridLayout = WidthProvider(RGL)
 
 const layout = [
   { i: 'price', x: 0, y: 0, w: 12, h: 12, static: true },
-  { i: 'menu', x: 0, y: 1, w: 2, h: 10, static: true },
-  { i: 'bestrates', x: 7, y: 2, w: 12, h: 20 },
-  { i: 'address1', x: 0, y: 3, w: 6, h: 20 },
-  { i: 'address2', x: 0, y: 3, w: 6, h: 20 },
+  { i: 'bestrates', x: 0, y: 12, w: 12, h: 20, static: true },
+  //{ i: 'address1', x: 0, y: 14, w: 6, h: 20, static: true },
+  //{ i: 'address2', x: 0, y: 15, w: 6, h: 20, static: true },
 ]
 const Layout = ({ children }) => (
   <div className="layout">
@@ -24,13 +23,6 @@ const Layout = ({ children }) => (
         </div>
         <Price />
       </div>
-      <div key="address1">
-        <Explore />
-      </div>
-      <div key="address2">
-        <Explore />
-      </div>
-
       <div key="bestrates">
         <BestRates />
       </div>
