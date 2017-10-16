@@ -17,9 +17,11 @@ const layout = [
 ]
 const Layout = ({ children }) => (
   <div className="layout">
-    <ReactGridLayout layout={layout} cols={12} rowHeight={15} width={1200}>
+    <ReactGridLayout cols={12} layout={layout} rowHeight={15} width={1200}>
       <div key="price">
-        <div className="title"><span className="title">{'Latest BTCUSD Prices'}</span></div>
+        <div className="title">
+          <span className="title">{'Latest BTCUSD Prices'}</span>
+        </div>
         <Price />
       </div>
       <div key="address1">
