@@ -9,11 +9,13 @@ class BestRates extends Component {
       selectedFromOption: 'btc',
       selectedToOption: 'eth',
     }
+    this.fetchCoinMap()
   }
+
+  coinMap = new Map()
 
   componentDidMount () {
     this.loadAssets()
-    this.loadMap()
   }
 
   // Load tradeable assets from cryptowat.ch api
@@ -33,18 +35,24 @@ class BestRates extends Component {
   }
 
   // Load CoinCap map of symbols to asset names
-  loadMap = async () => {
+  fetchCoinMap = async () => {
     try {
       const result = (await axios({
         responseType: 'json',
         url: 'https://coincap.io/map',
       })).data
 
-      const map = new Map()
+      const coinMap = new Map()
 
       result.map(asset => {
-        map.set(asset.symbol, asset.name || asset.symbol)
+        const symbol = asset.symbol.toLowerCase()
+        const name = (asset.name || asset.symbol).toLowerCase()
+        coinMap.set(symbol, name)
       })
+
+      this.coinMap = coinMap
+
+      console.log(this.coinMap)
     } catch (err) {
       console.error(err)
     }
@@ -60,16 +68,58 @@ class BestRates extends Component {
       })
     })
 
-    this.setState({ options: options })
+    this.setState({ options })
   }
 
-  handleFromSelection = (value) => {
+  getCoinURL = (symbol) => {
+    const fiats = [
+      'aud',
+      'chf',
+      'gbp',
+      'jpy',
+      'pln',
+      'sgd',
+      'brl',
+      'cny',
+      'hkd',
+      'mxn',
+      'rub',
+      'zar',
+      'cad',
+      'eur',
+      'inr',
+      'php',
+      'sek',
+    ]
+
+    if (symbol) {
+      const baseURL = 'https://coincap.io/images/coins/'
+
+      let name = this.coinMap.get(symbol)
+      if (name) {
+        name = name.replace(/[^a-z]/gi, '')
+      }
+
+      if (fiats.includes(symbol)) {
+        name = symbol
+      }
+      console.log(name)
+
+      return baseURL + name
+    } else {
+      return null
+    }
+  }
+
+  handleFromSelection = (option) => {
     console.log('handleFromSelection()')
     this.setState({
-      selectedFromOption: value,
+      selectedFromOption: option.value,
     })
     console.log('from:')
-    console.log(this.state.selectedFromOption)
+    console.log(option)
+    console.log('name:')
+    console.log(this.coinMap.get(option.value))
   }
 
   handleToSelection = (value) => {
@@ -81,7 +131,7 @@ class BestRates extends Component {
   render = () => (
     <div>
       <div className="title">
-        <span className="title">{'Best BTC Exchange Rates'}</span>
+        <span className="title">{`Best BTC Exchange Rates`}</span>
       </div>
 
       <div>
@@ -93,7 +143,7 @@ class BestRates extends Component {
         />
         <img
           height={30}
-          src={`https://coincap.io/images/coins/${this.state.selectedFromOption}.png`}
+          src={`${this.getCoinURL(this.state.selectedFromOption)}.png`}
           style={{ verticalAlign: 'middle' }}
           width={30}
         />
@@ -103,9 +153,15 @@ class BestRates extends Component {
           options={this.state.options}
           value={this.state.selectedToOption}
         />
+        <img
+          height={30}
+          src={`https://coincap.io/images/coins/ethereum.png`}
+          style={{ verticalAlign: 'middle' }}
+          width={30}
+        />
       </div>
     </div>
-    )
+  )
 }
 
 BestRates.displayName = 'BestRates'
