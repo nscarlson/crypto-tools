@@ -9,7 +9,11 @@ class BestRates extends Component {
       selectedFromOption: 'btc',
       selectedToOption: 'eth',
     }
+  }
+
+  componentDidMount () {
     this.loadAssets()
+    this.loadMap()
   }
 
   // Load tradeable assets from cryptowat.ch api
@@ -28,21 +32,30 @@ class BestRates extends Component {
     }
   }
 
+  // Load CoinCap map of symbols to asset names
+  loadMap = async () => {
+    try {
+      const result = (await axios({
+        responseType: 'json',
+        url: 'https://coincap.io/map',
+      })).data
+
+      const map = new Map()
+
+      result.map(asset => {
+        map.set(asset.symbol, asset.name || asset.symbol)
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   generateOptions = async (assets) => {
     const options = []
 
     assets.map((asset) => {
       options.push({
-        label: <span style={{ textAlign: 'middle' }}>
-          <img
-            src={`https://coincap.io/images/coins/${asset.name}.png`}
-            height={30}
-            width={30}
-            style={{ verticalAlign: 'middle' }}
-          />
-          <span>{`${asset.name} (${asset.id})`}</span>
-
-        </span>,
+        label: `${asset.name} (${asset.id})`,
         value: asset.id,
       })
     })
@@ -50,20 +63,13 @@ class BestRates extends Component {
     this.setState({ options: options })
   }
 
-  // Retrieve a coin symbol's name
-  getNameFromSymbol = (symbol) => {
-    let result = null
-
-    result = this.state.map.filter((coin) => (coin.symbol === symbol))
-
-    return result
-  }
-
   handleFromSelection = (value) => {
     console.log('handleFromSelection()')
     this.setState({
       selectedFromOption: value,
     })
+    console.log('from:')
+    console.log(this.state.selectedFromOption)
   }
 
   handleToSelection = (value) => {
@@ -85,13 +91,18 @@ class BestRates extends Component {
           options={this.state.options}
           value={this.state.selectedFromOption}
         />
+        <img
+          height={30}
+          src={`https://coincap.io/images/coins/${this.state.selectedFromOption}.png`}
+          style={{ verticalAlign: 'middle' }}
+          width={30}
+        />
         {'for'}
         <Select
           onChange={this.handleToSelection}
           options={this.state.options}
           value={this.state.selectedToOption}
         />
-
       </div>
     </div>
     )
