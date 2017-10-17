@@ -17,7 +17,7 @@ class ExchangeRate extends Component {
       {`Price: ${this.props.price}`}
       {(this.props.price === this.props.lowestPrice)
         ? null
-        : `(${this.props.price - this.props.lowestPrice} more)`
+        : `(${this.props.price - this.props.lowestPrice} more than lowest exchange)`
       }
     </div>
   )
