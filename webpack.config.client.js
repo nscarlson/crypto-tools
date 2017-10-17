@@ -1,4 +1,5 @@
 import AssetsPlugin from 'assets-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { resolve } from 'path'
 import webpack from 'webpack'
 import WebpackMd5Hash from 'webpack-md5-hash'
@@ -21,6 +22,10 @@ const client = {
   },
   plugins: [
     ...config.plugins,
+
+    new CopyWebpackPlugin([
+      { from: 'assets/images', to: 'images' },
+    ]),
 
     // Extract all 3rd party modules into a separate 'vendor' chunk
     new webpack.optimize.CommonsChunkPlugin({
