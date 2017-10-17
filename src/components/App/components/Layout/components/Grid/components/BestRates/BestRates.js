@@ -102,6 +102,11 @@ class BestRates extends Component {
         name = symbol
       }
 
+      // because rubles are so special
+      if (name === 'rur') {
+        name = 'rub'
+      }
+
       return baseURL + name
     } else {
       return null
