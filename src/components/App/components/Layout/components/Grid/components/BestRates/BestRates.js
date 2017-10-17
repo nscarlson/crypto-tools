@@ -51,8 +51,6 @@ class BestRates extends Component {
       })
 
       this.coinMap = coinMap
-
-      console.log(this.coinMap)
     } catch (err) {
       console.error(err)
     }
@@ -83,7 +81,7 @@ class BestRates extends Component {
       'cny',
       'hkd',
       'mxn',
-      'rub',
+      'rur',
       'zar',
       'cad',
       'eur',
@@ -103,7 +101,6 @@ class BestRates extends Component {
       if (fiats.includes(symbol)) {
         name = symbol
       }
-      console.log(name)
 
       return baseURL + name
     } else {
@@ -112,19 +109,14 @@ class BestRates extends Component {
   }
 
   handleFromSelection = (option) => {
-    console.log('handleFromSelection()')
     this.setState({
       selectedFromOption: option.value,
     })
-    console.log('from:')
-    console.log(option)
-    console.log('name:')
-    console.log(this.coinMap.get(option.value))
   }
 
-  handleToSelection = (value) => {
+  handleToSelection = (option) => {
     this.setState({
-      selectedToOption: value,
+      selectedToOption: option.value,
     })
   }
 
@@ -155,7 +147,7 @@ class BestRates extends Component {
         />
         <img
           height={30}
-          src={`https://coincap.io/images/coins/ethereum.png`}
+          src={`${this.getCoinURL(this.state.selectedToOption)}.png`}
           style={{ verticalAlign: 'middle' }}
           width={30}
         />
