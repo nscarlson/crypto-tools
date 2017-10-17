@@ -2,12 +2,22 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import Select from 'react-select'
 
+import ExchangeRate from './components/ExchangeRate'
+
 class BestRates extends Component {
   constructor (props) {
     super(props)
     this.state = {
       selectedFromOption: 'btc',
       selectedToOption: 'eth',
+      exchangeRates: [
+        {
+          exchange: 'poloniex',
+        },
+        {
+
+        },
+      ],
     }
     this.fetchCoinMap()
   }
@@ -51,6 +61,20 @@ class BestRates extends Component {
       })
 
       this.coinMap = coinMap
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  fetchExchangeRates = async (symbol1, symbol2) => {
+    let rates = null
+    try {
+      rates = (await axios({
+        responseType: 'json',
+        url: `/api/markets/${symbol1}_${symbol2}`,
+      })).data
+
+      return rates
     } catch (err) {
       console.error(err)
     }
@@ -117,12 +141,14 @@ class BestRates extends Component {
     this.setState({
       selectedFromOption: option.value,
     })
+    this.fetchExchangeRates()
   }
 
   handleToSelection = (option) => {
     this.setState({
       selectedToOption: option.value,
     })
+    this.fetchExchangeRates()
   }
 
   render = () => (
@@ -156,6 +182,21 @@ class BestRates extends Component {
           style={{ verticalAlign: 'middle' }}
           width={30}
         />
+      </div>
+
+      <div className="exchange-list">
+        Best Exchange Rates
+
+        {this.state.exchangeRates.map(
+          (exchange) => (
+            <ExchangeRate
+              exchange={exchange.exchange}
+              key={exchange.exchange}
+              price={exchange.price}
+            />
+          )
+        )}
+
       </div>
     </div>
   )
