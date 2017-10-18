@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 const getExchanges = async () => {
   let results = null
@@ -50,10 +51,16 @@ const mutateBtcPrices = async (data) => {
     exchanges.map(async (exchange) => {
       const exchangeId = exchange.id
 
+      console.log('exchangeId:')
+      console.log(exchangeId)
+
       data[exchange.name].map(async (price) => {
         const ohlc = price
         const timestamp = `${exchange.name}_60_${price[0]}`
         const pair = 'btcusd'
+
+        console.log('timestamp:')
+        console.log(timestamp)
 
         const mutationResult = (await axios({
           data: {
@@ -89,6 +96,9 @@ const mutateBtcPrices = async (data) => {
           responseType: 'json',
           url: 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis',
         })).data
+
+        console.log('mutation result')
+        console.log(mutationResult)
       })
     })
   } catch (err) {
@@ -101,22 +111,26 @@ const mutateBtcPrices = async (data) => {
  * setTimeout avoids the potential issue of timer events "stacking"
  */
 
-(async function refreshPrices () {
-  let exchanges = null
+const RefreshPrices = () => {
+  (async function refreshPrices () {
+    console.log('refreshing prices')
 
-  try {
-    exchanges = await getExchanges()
+    let exchanges = null
 
-    await Promise.all(
+    try {
+      exchanges = await getExchanges()
+
+      await Promise.all(
         exchanges.map(fetchBtcPrices)
       )
-  } catch (err) {
-    console.error(err)
-  }
+    } catch (err) {
+      console.error(err)
+    }
 
-  mutateBtcPrices(btcPriceResults)
+    mutateBtcPrices(btcPriceResults)
 
-  setTimeout(refreshPrices, 60000)
-})()
+    setTimeout(refreshPrices, 60000)
+  })()
+}
 
-export default refreshPrices
+export default RefreshPrices

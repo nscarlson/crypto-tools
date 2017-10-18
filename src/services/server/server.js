@@ -6,6 +6,7 @@ import API from './services/API'
 import HMR from './services/HMR'
 import Render from './services/Render'
 import StaticFiles from './services/StaticFiles'
+import RefreshPrices from './services/RefreshPrices'
 
 const app = express()
 
@@ -20,6 +21,8 @@ const init = () => {
     console.log('Listening on port 8000')
   })
 }
+
+RefreshPrices()
 
 export { init }
 export default app
