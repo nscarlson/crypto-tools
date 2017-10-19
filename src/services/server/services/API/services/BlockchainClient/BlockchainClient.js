@@ -38,11 +38,11 @@ class BlockchainClient {
       result = await axios({
         responseType: 'json',
         url: `${this.client.baseURL}/rawtx/${hash}`,
-      }).data
+      })
 
       console.log(`fetching single tx ${hash}`)
-      console.log(result)
-      return result
+      console.log(result.data)
+      return result.data
     } catch (err) {
       console.error(err)
     }

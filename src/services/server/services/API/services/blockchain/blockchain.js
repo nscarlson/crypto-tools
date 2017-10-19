@@ -24,4 +24,15 @@ markets.use('/blockchain/rawaddr/:address', async (req, res) => {
   }
 })
 
+markets.use('/blockchain/rawtx/:tx', async (req, res) => {
+  const tx = req.params.tx
+
+  try {
+    const result = await blockchainClient.getRawTx(tx)
+    res.status(200).json(result)
+  } catch (err) {
+    console.err('ERROR', err)
+  }
+})
+
 export default markets

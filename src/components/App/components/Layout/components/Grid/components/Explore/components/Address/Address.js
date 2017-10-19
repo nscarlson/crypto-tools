@@ -40,11 +40,8 @@ class Address extends Component {
     let result = null
     try {
       result = axios({
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         responseType: 'json',
-        url: `https://blockchain.info/rawaddr/${address}`,
+        url: `/api/blockchain/rawaddr/${address}`,
         withCredentials: true,
 
       }).data
