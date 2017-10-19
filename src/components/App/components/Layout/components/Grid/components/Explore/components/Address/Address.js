@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { object, string } from 'prop-types'
+import { func, object, string } from 'prop-types'
 import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
-import { getAddress } from 'services/queries/Address'
+import { createBtcAddress, getAddress } from 'services/queries/Address'
 import TransactionContainer from './components/transaction/TransactionContainer'
 
 class Address extends Component {
@@ -11,6 +11,7 @@ class Address extends Component {
 
   static propTypes = {
     address: string,
+    createBtcAddressMutation: func,
     data: object,
   }
 
@@ -21,7 +22,9 @@ class Address extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    this.fetchAddress(nextProps.address)
+    if (nextProps.address) {
+      this.fetchAddress(nextProps.address)
+    }
   }
 
   createAddress = () => {
@@ -56,35 +59,27 @@ class Address extends Component {
   render = () => {
     if (this.props.data.loading) {
       return (<span>Loading...</span>)
+    } else {
+      const address = this.props.address
+      const addressData = this.props.data.allBtcAddresses[0]
+
+      console.log('address is: ')
+      console.log(address)
+
+      console.log('address data:')
+      console.log(addressData)
+
+      return (
+        <div>
+          {this.props.address}
+
+        </div>
+
+      )
     }
-
-    const address = this.props.address
-    const addressData = this.props.data.allBtcAddresses[0]
-
-    console.log('address is: ')
-    console.log(address)
-
-    console.log('address data:')
-    console.log(addressData)
-
-    return (
-      <div>
-        {this.props.address}
-
-        <TransactionContainer transactions={addressData.transactions} />
-        {addressData.transactions.map((transaction) => (
-          <div
-            className="transaction"
-            key={transaction.id}
-          >
-            {transaction.inputs[0].address}
-          </div>
-        ))}
-
-      </div>
-
-    )
   }
 }
 
-export default graphql(getAddress, { options: ({ address }) => ({ variables: { address } }) })(Address)
+export default graphql(createBtcAddress, { name: 'createBtcAddressMutation' })(
+  graphql(getAddress, { options: ({ address }) => ({ variables: { address } }) })(Address)
+)
