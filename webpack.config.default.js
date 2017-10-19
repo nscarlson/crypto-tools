@@ -59,6 +59,9 @@ const config = {
       },
     ],
   },
+  node: {
+    fs: 'empty',
+  },
   output: {
     filename: '[name].js',
     libraryTarget: 'umd',

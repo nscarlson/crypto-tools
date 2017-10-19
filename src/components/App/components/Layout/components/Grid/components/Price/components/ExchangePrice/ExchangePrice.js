@@ -1,5 +1,5 @@
-import { graphql } from 'react-apollo'
 import { object, string } from 'prop-types'
+import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
 import { latestBtcPricesQuery } from 'services/queries/prices'

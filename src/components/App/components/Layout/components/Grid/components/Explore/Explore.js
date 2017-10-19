@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 
-import AddressInput from './components/AddressInput'
+import Address from './components/Address'
 
 class Explore extends Component {
   static displayName = 'Explore'
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      address: '',
+    }
+  }
+
+  handleUpdateAddress = (address) => {
+    this.setState({ address: address.target.value })
+    console.log(`address updated: ${address.target.value}`)
+  }
 
   render = () =>
     <div id="explore-container">
       <div className="title">
         <span className="title">Search Address</span>
       </div>
-      <AddressInput />
-      <table>
-        <tbody><tr><td>TEST</td></tr></tbody>
+      <input
+        onChange={this.handleUpdateAddress}
+        placeholder="0x123456789abcdef"
+      />
 
-      </table>
+      <Address address={this.state.address} />
+
     </div>
 }
 
