@@ -51,16 +51,10 @@ const mutateBtcPrices = async (data) => {
     exchanges.map(async (exchange) => {
       const exchangeId = exchange.id
 
-      console.log('exchangeId:')
-      console.log(exchangeId)
-
       data[exchange.name].map(async (price) => {
         const ohlc = price
         const timestamp = `${exchange.name}_60_${price[0]}`
         const pair = 'btcusd'
-
-        console.log('timestamp:')
-        console.log(timestamp)
 
         const mutationResult = (await axios({
           data: {
@@ -96,9 +90,6 @@ const mutateBtcPrices = async (data) => {
           responseType: 'json',
           url: 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis',
         })).data
-
-        console.log('mutation result')
-        console.log(mutationResult)
       })
     })
   } catch (err) {
@@ -113,8 +104,6 @@ const mutateBtcPrices = async (data) => {
 
 const RefreshPrices = () => {
   (async function refreshPrices () {
-    console.log('refreshing prices')
-
     let exchanges = null
 
     try {
