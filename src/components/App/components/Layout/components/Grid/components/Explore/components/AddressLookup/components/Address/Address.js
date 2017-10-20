@@ -3,15 +3,18 @@ import { func, object, string } from 'prop-types'
 import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
-import { createBtcAddress, getAddress } from 'services/queries/Address'
-import TransactionContainer from './components/transaction/TransactionContainer'
+import { createBtcAddress } from 'services/mutations/address'
+import { getBtcAddress } from 'services/queries/address'
+
+// import TransactionContainer from './components/transaction/TransactionContainer'
 
 class Address extends Component {
   static displayName = 'Address'
 
   static propTypes = {
     address: string,
-    createBtcAddressMutation: func,
+    getBtcAddressQuery: object,
+    createBtcAddressMutation: object,
     data: object,
   }
 
@@ -21,11 +24,12 @@ class Address extends Component {
     this.fetchAddress(this.props.address)
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.address) {
-      this.fetchAddress(nextProps.address)
-    }
-  }
+  // componentWillReceiveProps = (nextProps) => {
+  //   if (nextProps.address) {
+  //     this.fetchAddress(nextProps.address)
+  //     console.log('fetching address in Address')
+  //   }
+  // }
 
   createAddress = () => {
     this.props.createBtcAddressMutation({
@@ -57,11 +61,11 @@ class Address extends Component {
   }
 
   render = () => {
-    if (this.props.data.loading) {
+    if (this.props.getBtcAddressQuery.loading) {
       return (<span>Loading...</span>)
     } else {
       const address = this.props.address
-      const addressData = this.props.data.allBtcAddresses[0]
+      const addressData = this.props.data || []
 
       console.log('address is: ')
       console.log(address)
@@ -72,7 +76,6 @@ class Address extends Component {
       return (
         <div>
           {this.props.address}
-
         </div>
 
       )
@@ -80,6 +83,6 @@ class Address extends Component {
   }
 }
 
-export default graphql(createBtcAddress, { name: 'createBtcAddressMutation' })(
-  graphql(getAddress, { options: ({ address }) => ({ variables: { address } }) })(Address)
+export default graphql(createBtcAddress, { options: ({ address }) => ({ variables: { address } }) })(
+  graphql(getBtcAddress, { name: 'getBtcAddressQuery' }, { options: ({ address }) => ({ variables: { address } }) })(Address)
 )

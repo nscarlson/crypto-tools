@@ -1,6 +1,6 @@
 import { gql } from 'react-apollo'
 
-const getAddress = gql`
+const getBtcAddress = gql`
   query getAddress (
     $address: String!
   ) {
@@ -27,4 +27,4 @@ const getAddress = gql`
   }
 `
 
-export { getAddress }
+export { getBtcAddress }
