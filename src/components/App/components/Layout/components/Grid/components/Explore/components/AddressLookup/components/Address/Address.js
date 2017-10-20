@@ -65,7 +65,7 @@ class Address extends Component {
       return (<span>Loading...</span>)
     } else {
       const address = this.props.address
-      const addressData = this.props.data || []
+      const addressData = this.props.getBtcAddressQuery || []
 
       console.log('address is: ')
       console.log(address)
