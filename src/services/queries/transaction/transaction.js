@@ -1,17 +1,12 @@
 import { gql } from 'react-apollo'
 
-query getTransaction = gql`
-  query getTransaction (
+const getBtcTransaction = gql`
+  query getBtcTransaction (
     $address: String!
     $hash: String!
   ) {
-    allTransactions (
-      filter: {
-        btcAddress: {
-          address: $address
-        }
-        hash: $hash
-      }
+    Transaction (
+      hash: $hash
     ) {
       id
       hash
@@ -33,3 +28,5 @@ query getTransaction = gql`
       }
     }
 `
+
+export default getBtcTransaction

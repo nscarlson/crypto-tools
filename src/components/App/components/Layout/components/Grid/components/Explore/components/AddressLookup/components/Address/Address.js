@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 
 import { createBtcAddress } from 'services/mutations/address'
 import { getBtcAddress } from 'services/queries/address'
+import Transaction from './components/Transaction'
 
 // import TransactionContainer from './components/transaction/TransactionContainer'
 
@@ -71,7 +72,7 @@ class Address extends Component {
       return (<span>Loading...</span>)
     } else {
       const address = this.props.address
-      const addressData = this.props.getBtcAddressQuery || []
+      const addressData = this.props.getBtcAddressQuery.BtcAddress || []
 
       console.log('address data:')
       console.log(addressData)
@@ -79,6 +80,7 @@ class Address extends Component {
       return (
         <div>
           {this.props.address}
+          {addressData.transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
         </div>
 
       )
