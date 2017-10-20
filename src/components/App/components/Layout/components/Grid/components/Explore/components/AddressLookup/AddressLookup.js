@@ -7,6 +7,13 @@ import Address from './components/Address'
 class AddressLookup extends Component {
   static displayName = 'AddressLookup'
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      address: '',
+    }
+  }
+
   handleUpdateAddress = (address) => {
     this.setState({ address: address.target.value })
     console.log(`address updated: ${address.target.value}`)
@@ -18,7 +25,7 @@ class AddressLookup extends Component {
         onChange={this.handleUpdateAddress}
         placeholder="0x123456789abcdef"
       />
-      <Address address="blahblah" />
+      <Address address={this.state.address} />
     </div>
   )
 }

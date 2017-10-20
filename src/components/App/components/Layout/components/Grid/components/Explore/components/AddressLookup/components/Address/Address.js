@@ -13,9 +13,9 @@ class Address extends Component {
 
   static propTypes = {
     address: string,
-    getBtcAddressQuery: object,
     createBtcAddressMutation: object,
     data: object,
+    getBtcAddressQuery: object,
   }
 
   addressData = null
@@ -50,11 +50,17 @@ class Address extends Component {
         responseType: 'json',
         url: `/api/blockchain/rawaddr/${address}`,
         withCredentials: true,
-
       }).data
 
-      console.log('result')
-      console.log(result)
+      console.log('data:')
+      console.log(result.response.status)
+
+      if (result.response.status === 200) {
+        console.log('result')
+        console.log(result)
+      } else {
+        console.log('invalid address')
+      }
     } catch (err) {
       console.err(err)
     }
@@ -66,9 +72,6 @@ class Address extends Component {
     } else {
       const address = this.props.address
       const addressData = this.props.getBtcAddressQuery || []
-
-      console.log('address is: ')
-      console.log(address)
 
       console.log('address data:')
       console.log(addressData)
