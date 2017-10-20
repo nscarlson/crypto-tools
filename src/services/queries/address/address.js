@@ -15,10 +15,18 @@ const getBtcAddress = gql`
         hash
         txindex
         inputs {
+          id
           address
+          spent
+          txindex
+          value
         }
         outputs {
+          id
           address
+          spent
+          txindex
+          value
         }
       }
     }

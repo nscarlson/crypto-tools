@@ -1,11 +1,10 @@
 import axios from 'axios'
-import { func, object, string } from 'prop-types'
+import { string } from 'prop-types'
 import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
-import { createBtcAddress } from 'services/mutations/address'
 import { getBtcAddress } from 'services/queries/address'
-import Transaction from './components/Transaction'
+// import Transaction from './components/Transaction'
 
 // import TransactionContainer from './components/transaction/TransactionContainer'
 
@@ -14,80 +13,67 @@ class Address extends Component {
 
   static propTypes = {
     address: string,
-    createBtcAddressMutation: object,
-    data: object,
-    getBtcAddressQuery: object,
   }
 
-  addressData = null
-
-  componentDidMount = () => {
-    this.fetchAddress(this.props.address)
+  constructor (props) {
+    super(props)
+    this.state = {
+      addressData: null,
+    }
   }
 
-  // componentWillReceiveProps = (nextProps) => {
-  //   if (nextProps.address) {
-  //     this.fetchAddress(nextProps.address)
-  //     console.log('fetching address in Address')
-  //   }
-  // }
-
-  createAddress = () => {
-    this.props.createBtcAddressMutation({
-      variables: {
-        address: '',
-        balance: '',
-        hash160: '',
-        totalReceived: '',
-        totalsent: '',
-      },
-    })
+  componentWillReceiveProps = (nextProps) => {
+    console.log('next props:')
+    console.log(nextProps.address)
+    this.fetchAddress(nextProps.address)
   }
 
   fetchAddress = async (address) => {
     let result = null
     try {
-      result = axios({
+      result = (await axios({
         responseType: 'json',
         url: `/api/blockchain/rawaddr/${address}`,
         withCredentials: true,
-      }).data
+      })).data
 
       console.log('data:')
-      console.log(result.response.status)
+      console.log(result)
 
-      if (result.response.status === 200) {
-        console.log('result')
-        console.log(result)
-      } else {
-        console.log('invalid address')
-      }
+      this.setState({ addressData: result })
     } catch (err) {
-      console.err(err)
+      console.error(err)
     }
   }
 
   render = () => {
-    if (this.props.getBtcAddressQuery.loading) {
-      return (<span>Loading...</span>)
-    } else {
-      const address = this.props.address
-      const addressData = this.props.getBtcAddressQuery.BtcAddress || []
+    if (this.state.addressData) {
+      const txs = this.state.addressData.txs
 
-      console.log('address data:')
-      console.log(addressData)
+      const transactions = txs.map((tx) => {
+        console.log('address')
+        console.log(tx.hash)
+        return (
+          <div key={tx.hash}>
+            {tx.hash}
+            <div className="inputs">{tx.inputs.map((input) => (<div>{input.prev_out.addr}</div>))}</div>
+            ->
+            <div className="outputs">{tx.out.map((out) => (<div>{out.addr}</div>))}</div>
+          </div>
+        )
+      })
 
       return (
         <div>
           {this.props.address}
-          {addressData.transactions.map((transaction) => <Transaction key={transaction.id} transaction={transaction} />)}
+          {transactions}
         </div>
 
       )
+    } else {
+      return <div>loading...</div>
     }
   }
 }
 
-export default graphql(createBtcAddress, { options: ({ address }) => ({ variables: { address } }) })(
-  graphql(getBtcAddress, { name: 'getBtcAddressQuery' }, { options: ({ address }) => ({ variables: { address } }) })(Address)
-)
+export default graphql(getBtcAddress, { name: 'getBtcAddressQuery' }, { options: ({ address }) => ({ variables: { address } }) })(Address)
