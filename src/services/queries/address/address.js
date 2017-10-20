@@ -1,13 +1,11 @@
 import { gql } from 'react-apollo'
 
 const getBtcAddress = gql`
-  query getAddress (
+  query getBtcAddress (
     $address: String!
   ) {
-    allBtcAddresses(
-      filter: {
-        address: $address
-      }
+    BtcAddress (
+      address: $address
     ) {
       id
       address
