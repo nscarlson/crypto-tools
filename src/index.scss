@@ -23,6 +23,7 @@ $desktop: "screen and (min-width: 1024px)";
   }
 }
 
+$black: #000;
 $white: #FFF;
 $red: hsl(355, 65%, 65%);
 
@@ -38,7 +39,7 @@ $orange1: hsl( 29, 54%, 61%); // <-orange 1
 $orange2: hsl( 39, 67%, 69%); // <-orange 2
 
 * {box-sizing: border-box;
-  color: $white
+  color: $black;
 }
 
 input {
@@ -47,7 +48,11 @@ input {
 
 body {
   background-color: rgb(40, 44, 52);
-  font-family: 'Menlo', 'Monaco', 'Courier New', 'monospace'
+  font-family: 'Roboto'
+}
+
+h1 {
+  font-family: 'Roboto'
 }
 
 // import styles for components and scenes
