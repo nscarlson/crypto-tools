@@ -1,5 +1,14 @@
 @import 'components/components';
 
+div.best-rates-container {
+  height: 100%;
+}
+
+div.exchange-list {
+  height: 465px;
+  overflow: auto;
+}
+
 img.exchange-icon {
   max-height: 50px;
   max-width: 50px;

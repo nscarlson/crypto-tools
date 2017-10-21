@@ -166,7 +166,7 @@ class BestRates extends Component {
     )
 
     return (
-      <div>
+      <div className="best-rates-container">
         <div className="title">
           <span className="title">{`Best BTC Exchange Rates`}</span>
         </div>
