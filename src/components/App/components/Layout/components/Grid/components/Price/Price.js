@@ -6,7 +6,7 @@ class Price extends Component {
   static displayName = 'Price'
 
   render = () => (
-    <div>
+    <div className="price-container">
       <ExchangePrice exchange="bitstamp" pair="btcusd" />
       <ExchangePrice exchange="kraken" pair="btcusd" />
       <ExchangePrice exchange="gemini" pair="btcusd" />

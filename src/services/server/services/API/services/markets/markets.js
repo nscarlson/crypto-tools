@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { Router } from 'express'
 import CryptowatchClient from '../CryptowatchClient'
 
@@ -22,32 +23,37 @@ markets.use('/markets/:pair', async (req, res) => {
   if (/[a-z]{3,}_[a-z]{3,}/.test(pair)) {
     const symbols = pair.split('_')
 
-    let pairData = null
-
     /**
      * validate both symbols in pair against currency symbol whitelist
      */
     try {
-      pairData = await cryptowatchClient.getPricesByPair(pair)
+      let cryptowatchPairData = await cryptowatchClient.getPricesByPair(pair)
+      const ssPairData = await (axios({
+        responseType: 'json',
+        url: `api.shapeshift.io`,
+      })).data
+
+      console.log('ssPairData:')
+      console.log(ssPairData)
 
       // if returned an empty array, invert the prices
-      if (pairData.length === 0) {
-        pairData = await cryptowatchClient.getPricesByPair(`${symbols[1]}_${symbols[0]}`)
+      if (cryptowatchPairData.length === 0) {
+        cryptowatchPairData = await cryptowatchClient.getPricesByPair(`${symbols[1]}_${symbols[0]}`)
 
-        pairData.forEach((rate, index) => {
-          pairData[index] = {
+        cryptowatchPairData.forEach((rate, index) => {
+          cryptowatchPairData[index] = {
             exchange: rate.exchange,
-            price: (1 / pairData[index].price),
+            price: (1 / cryptowatchPairData[index].price),
           }
         })
       }
 
       // if returned array is still empty, exchange info for pair is not offered by cryptowat.ch
-      if (pairData.length === 0) {
+      if (cryptowatchPairData.length === 0) {
         res.status(400).send(`Trading between ${symbols[0]} and ${symbols[1]} is not supported`)
+      } else {
+        res.status(200).json(cryptowatchPairData)
       }
-
-      res.status(200).json(pairData)
     } catch (err) {
       console.error('ERROR', err)
     }

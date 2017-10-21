@@ -9,34 +9,17 @@ class BestRates extends Component {
     super(props)
     this.state = {
       exchangeAmount: 1,
-      exchangeRates: [
-        {
-          exchange: 'poloniex',
-          price: 10.3838,
-        },
-        {
-          exchange: 'bitfinex',
-          price: 30.839,
-        },
-        {
-          exchange: 'gemini',
-          price: 9292,
-        },
-        {
-          exchange: 'kraken',
-          price: 93942,
-        },
-      ],
+      exchangeRates: [],
       selectedFromOption: 'eth',
       selectedToOption: 'btc',
     }
-    this.fetchCoinMap()
   }
 
   coinMap = new Map()
 
   componentDidMount () {
     this.fetchAssets()
+    this.fetchCoinMap()
     this.fetchExchangeRates()
   }
 

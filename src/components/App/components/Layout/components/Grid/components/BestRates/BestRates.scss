@@ -1,1 +1,13 @@
-@import 'components/components'
+@import 'components/components';
+
+img.exchange-icon {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+div.select-container {
+  display: -webkit-flex;
+  display: flex;                  /* establish flex container */
+  flex-direction: left;            /* default value; can be omitted */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+}

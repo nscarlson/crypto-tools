@@ -11,14 +11,20 @@ class ExchangeRate extends Component {
   }
 
   render = () => (
-    <div className={`exchange-item ${this.props.price === this.props.lowestPrice ? 'lowest-price' : null} `}>
-      <span className="exchange-title">{this.props.exchange}</span>
-      <img className="exchange-icon" src={`/dist/images/exchanges/${this.props.exchange}.png`} />
-      {`Price: ${this.props.price}`}
-      {(this.props.price === this.props.lowestPrice)
-        ? null
-        : `(${this.props.price - this.props.lowestPrice} more than lowest exchange)`
-      }
+    <div className={`exchange-rate-container ${this.props.price === this.props.lowestPrice ? 'lowest-price' : null} `}>
+      <div className="icon-container">
+        <img className="exchange-icon" src={`/dist/images/exchanges/${this.props.exchange}.png`} />
+      </div>
+      <div className="exchange-price-container">
+        {this.props.exchange}
+        <br />
+        {`Price: ${this.props.price}`}
+      </div>
+      <div className="exchange-price-difference">
+        {(this.props.price === this.props.lowestPrice)
+          ? null
+          : `(${(this.props.price - this.props.lowestPrice).toPrecision(6)} more than lowest exchange)`
+        }</div>
     </div>
   )
 }
