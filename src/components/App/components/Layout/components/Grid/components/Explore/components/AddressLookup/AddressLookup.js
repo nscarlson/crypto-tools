@@ -16,7 +16,6 @@ class AddressLookup extends Component {
 
   handleUpdateAddress = (address) => {
     this.setState({ address: address.target.value })
-    console.log(`address updated: ${address.target.value}`)
   }
 
   render = () => (

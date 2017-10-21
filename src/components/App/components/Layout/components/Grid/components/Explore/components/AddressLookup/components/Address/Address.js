@@ -23,8 +23,6 @@ class Address extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log('next props:')
-    console.log(nextProps.address)
     this.fetchAddress(nextProps.address)
   }
 
@@ -37,9 +35,6 @@ class Address extends Component {
         withCredentials: true,
       })).data
 
-      console.log('data:')
-      console.log(result)
-
       this.setState({ addressData: result })
     } catch (err) {
       console.error(err)
@@ -50,18 +45,14 @@ class Address extends Component {
     if (this.state.addressData) {
       const txs = this.state.addressData.txs
 
-      const transactions = txs.map((tx) => {
-        console.log('address')
-        console.log(tx.hash)
-        return (
+      const transactions = txs.map((tx) => (
           <div key={tx.hash}>
             {tx.hash}
             <div className="inputs">{tx.inputs.map((input) => (<div>{input.prev_out.addr}</div>))}</div>
             ->
             <div className="outputs">{tx.out.map((out) => (<div>{out.addr}</div>))}</div>
           </div>
-        )
-      })
+        ))
 
       return (
         <div>

@@ -39,9 +39,6 @@ class BlockchainClient {
         responseType: 'json',
         url: `${this.client.baseURL}/rawtx/${hash}`,
       })
-
-      console.log(`fetching single tx ${hash}`)
-      console.log(result.data)
       return result.data
     } catch (err) {
       console.error(err)

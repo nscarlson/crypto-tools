@@ -24,19 +24,34 @@ markets.use('/markets/:pair', async (req, res) => {
 
     let pairData = null
 
-    console.log(`symbols: ${symbols}`)
-
     /**
      * validate both symbols in pair against currency symbol whitelist
      */
     try {
       pairData = await cryptowatchClient.getPricesByPair(pair)
+
+      // if returned an empty array, invert the prices
+      if (pairData.length === 0) {
+        pairData = await cryptowatchClient.getPricesByPair(`${symbols[1]}_${symbols[0]}`)
+
+        pairData.forEach((rate, index) => {
+          pairData[index] = {
+            exchange: rate.exchange,
+            price: (1 / pairData[index].price),
+          }
+        })
+      }
+
+      // if returned array is still empty, exchange info for pair is not offered by cryptowat.ch
+      if (pairData.length === 0) {
+        res.status(400).send(`Trading between ${symbols[0]} and ${symbols[1]} is not supported`)
+      }
+
       res.status(200).json(pairData)
     } catch (err) {
-      console.err('ERROR', err)
+      console.error('ERROR', err)
     }
   } else {
-    console.log('one or both currency symbols are invalid')
     res.status(400).send('Malformatted currency pair. A valid example is /api/markets/eth_btc')
   }
 })

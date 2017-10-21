@@ -168,55 +168,60 @@ class BestRates extends Component {
     this.fetchExchangeRates(this.state.selectedFromOption, option.value)
   }
 
-  render = () => (
-    <div>
-      <div className="title">
-        <span className="title">{`Best BTC Exchange Rates`}</span>
-      </div>
+  render = () => {
+    const exchangeRates = this.state.exchangeRates
 
+    const exchangePrices = exchangeRates.map(
+      (exchange) => (
+        <ExchangeRate
+          exchange={exchange.exchange}
+          key={exchange.exchange}
+          lowestPrice={this.state.exchangeRates[0].price}
+          price={exchange.price}
+        />
+      )
+    )
+
+    return (
       <div>
-        {'I want to exchange'}
-        <Select
-          onChange={this.handleFromSelection}
-          options={this.state.options}
-          value={this.state.selectedFromOption}
-        />
-        <img
-          height={30}
-          src={`${this.getCoinURL(this.state.selectedFromOption)}.png`}
-          style={{ verticalAlign: 'middle' }}
-          width={30}
-        />
-        {'for'}
-        <Select
-          onChange={this.handleToSelection}
-          options={this.state.options}
-          value={this.state.selectedToOption}
-        />
-        <img
-          height={30}
-          src={`${this.getCoinURL(this.state.selectedToOption)}.png`}
-          style={{ verticalAlign: 'middle' }}
-          width={30}
-        />
-      </div>
+        <div className="title">
+          <span className="title">{`Best BTC Exchange Rates`}</span>
+        </div>
 
-      <div className="exchange-list">
-        Best Exchange Rates
+        <div>
+          {'I want to exchange'}
+          <Select
+            onChange={this.handleFromSelection}
+            options={this.state.options}
+            value={this.state.selectedFromOption}
+          />
+          <img
+            height={30}
+            src={`${this.getCoinURL(this.state.selectedFromOption)}.png`}
+            style={{ verticalAlign: 'middle' }}
+            width={30}
+          />
+          {'for'}
+          <Select
+            onChange={this.handleToSelection}
+            options={this.state.options}
+            value={this.state.selectedToOption}
+          />
+          <img
+            height={30}
+            src={`${this.getCoinURL(this.state.selectedToOption)}.png`}
+            style={{ verticalAlign: 'middle' }}
+            width={30}
+          />
+        </div>
 
-        {this.state.exchangeRates.map(
-          (exchange) => (
-            <ExchangeRate
-              exchange={exchange.exchange}
-              key={exchange.exchange}
-              lowestPrice={this.state.exchangeRates[0].price}
-              price={exchange.price}
-            />
-          )
-        )}
+        <div className="exchange-list">
+        Best Exchange Rates:
+        {exchangePrices}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 BestRates.displayName = 'BestRates'

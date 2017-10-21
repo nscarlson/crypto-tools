@@ -36,8 +36,6 @@ class CryptowatchClient {
     try {
       result = await (await fetch(`${this.client.baseURL}/pair`)).json()
 
-      console.log('pairData', result)
-
       return result
     } catch (err) {
       console.error('ERROR', err)

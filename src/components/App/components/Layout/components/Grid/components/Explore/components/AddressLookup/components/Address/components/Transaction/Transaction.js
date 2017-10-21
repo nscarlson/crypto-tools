@@ -10,30 +10,17 @@ class Transaction extends Component {
   }
 
   render = () => {
-    console.log('transaction:')
-    console.log(this.props.transaction)
+    const inputs = this.props.transaction.inputs.map((input) => (
+      <div>
+        <div className="inputs">{input.address}{`${input.value / 100000000} BTC`}</div>
+      </div>
+    ))
 
-    const inputs = this.props.transaction.inputs.map((input) => {
-      console.log('input:')
-      console.log(input)
-
-      return (
-        <div>
-          <div className="inputs">{input.address}{`${input.value / 100000000} BTC`}</div>
-        </div>
-      )
-    })
-
-    const outputs = this.props.transaction.outputs.map((output) => {
-      console.log('output:')
-      console.log(output)
-
-      return (
-        <div>
-          <div className="inputs">{output.address}{`${output.value / 100000000} BTC`}</div>
-        </div>
-      )
-    })
+    const outputs = this.props.transaction.outputs.map((output) => (
+      <div>
+        <div className="inputs">{output.address}{`${output.value / 100000000} BTC`}</div>
+      </div>
+    ))
 
     return (
       <div>
