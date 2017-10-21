@@ -8,6 +8,7 @@ class BestRates extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      exchangeAmount: 1,
       exchangeRates: [
         {
           exchange: 'poloniex',
@@ -26,8 +27,8 @@ class BestRates extends Component {
           price: 93942,
         },
       ],
-      selectedFromOption: 'btc',
-      selectedToOption: 'eth',
+      selectedFromOption: 'eth',
+      selectedToOption: 'btc',
     }
     this.fetchCoinMap()
   }
@@ -35,11 +36,12 @@ class BestRates extends Component {
   coinMap = new Map()
 
   componentDidMount () {
-    this.loadAssets()
+    this.fetchAssets()
+    this.fetchExchangeRates()
   }
 
-  // Load tradeable assets from cryptowat.ch api
-  loadAssets = async () => {
+  // fetch tradeable assets from cryptowat.ch api
+  fetchAssets = async () => {
     let assets = null
 
     try {
@@ -54,7 +56,7 @@ class BestRates extends Component {
     }
   }
 
-  // Load CoinCap map of symbols to asset names
+  // fetch CoinCap map of symbols to asset names
   fetchCoinMap = async () => {
     try {
       const result = (await axios({
@@ -77,14 +79,19 @@ class BestRates extends Component {
   }
 
   fetchExchangeRates = async (symbol1, symbol2) => {
-    let rates = null
+    let exchangeRates = {}
+
     try {
-      rates = (await axios({
+      exchangeRates = (await axios({
         responseType: 'json',
         url: `/api/markets/${symbol1}_${symbol2}`,
       })).data
 
-      return rates
+      this.setState({
+        exchangeRates,
+      })
+
+      return exchangeRates
     } catch (err) {
       console.error(err)
     }
@@ -151,14 +158,14 @@ class BestRates extends Component {
     this.setState({
       selectedFromOption: option.value,
     })
-    this.fetchExchangeRates()
+    this.fetchExchangeRates(option.value, this.state.selectedToOption)
   }
 
   handleToSelection = (option) => {
     this.setState({
       selectedToOption: option.value,
     })
-    this.fetchExchangeRates()
+    this.fetchExchangeRates(this.state.selectedFromOption, option.value)
   }
 
   render = () => (
