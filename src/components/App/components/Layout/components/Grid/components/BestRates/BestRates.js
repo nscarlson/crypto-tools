@@ -171,8 +171,8 @@ class BestRates extends Component {
           <span className="title">{`Best BTC Exchange Rates`}</span>
         </div>
 
-        <div>
-          {'I want to exchange'}
+        {'I want to exchange'}
+        <div className="select-asset-container">
           <Select
             onChange={this.handleFromSelection}
             options={this.state.options}
@@ -184,7 +184,11 @@ class BestRates extends Component {
             style={{ verticalAlign: 'middle' }}
             width={30}
           />
-          {'for'}
+        </div>
+
+        {'for'}
+
+        <div className="select-asset-container">
           <Select
             onChange={this.handleToSelection}
             options={this.state.options}
@@ -202,6 +206,7 @@ class BestRates extends Component {
         Best Exchange Rates:
         {exchangePrices}
         </div>
+
       </div>
     )
   }

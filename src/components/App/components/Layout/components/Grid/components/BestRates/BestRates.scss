@@ -4,6 +4,17 @@ div.best-rates-container {
   height: 100%;
 }
 
+div.select-asset-container {
+  display: -webkit-flex;
+  display: flex;                  /* establish flex container */
+  flex-direction: left;            /* default value; can be omitted */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+}
+
+div.Select {
+  width: 200px;
+}
+
 div.exchange-list {
   height: 465px;
   overflow: auto;
