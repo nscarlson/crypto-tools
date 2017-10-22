@@ -1,34 +1,25 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 
-const uri = 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis'
-const subscriptionsURI = 'wss://subscriptions.us-west-2.graph.cool/v1/cj8ff7iah067k01397yllgnis'
-let apollo = null
+// GraphCool subscriptions endpoint
+const wsClient = new SubscriptionClient('wss://subscriptions.us-west-2.graph.cool/v1/cj8ff7iah067k01397yllgnis', {
+  reconnect: true,
+  timeout: 20000,
+})
 
-function _initClient (headers, initialState, subscriptionsInterface) {
-  return new ApolloClient({
-    dataIdFromObject: result => result.id || null,
-    initialState,
-    networkInterface: subscriptionsInterface || createNetworkInterface({ uri }),
-    ssrMode: !process.browser,
-  })
-}
+// GraphCool simple API endpoint
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis',
+})
 
-const initClient = (headers, initialState = {}) => {
-  if (!process.browser) {
-    // Server uses a standard ApolloClient instance
-    return _initClient(headers, initialState)
-  }
-  if (!apollo) {
-    // Client uses an ApolloClient that supports subscriptions
-    apollo = _initClient(headers, initialState, addGraphQLSubscriptions(
-      createNetworkInterface({ uri }),
-      new SubscriptionClient(subscriptionsURI, { reconnect: true })
-    ))
-  }
-  return apollo
-}
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+  networkInterface,
+  wsClient
+)
 
-apollo = initClient()
+const apollo = new ApolloClient({
+  dataIdFromObject: o => o.id,
+  networkInterface: networkInterfaceWithSubscriptions,
+})
 
 export default apollo
