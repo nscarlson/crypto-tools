@@ -1,7 +1,7 @@
 import { gql } from 'react-apollo'
 
-const latestBtcPricesQuery = gql`
-  query latestBtcPricesQuery(
+const allPrices = gql`
+  query allPrices (
     $exchange: String!
   ) {
     allPrices(
@@ -24,4 +24,4 @@ const latestBtcPricesQuery = gql`
   }
 `
 
-export { latestBtcPricesQuery }
+export { allPrices }

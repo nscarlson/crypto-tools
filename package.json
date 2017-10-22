@@ -65,8 +65,7 @@
     "request": "^2.83.0",
     "subscriptions-transport-ws": "^0.8.2",
     "url-loader": "^0.6.2",
-    "utf-8-validate": "^3.0.3",
-    "ws": "^3.2.0"
+    "utf-8-validate": "^3.0.3"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",

@@ -2,7 +2,7 @@ import { func, object, string } from 'prop-types'
 import { graphql, gql } from 'react-apollo'
 import React, { Component } from 'react'
 
-import { latestBtcPricesQuery } from 'services/queries/prices'
+import { allPrices } from 'services/queries/prices'
 import Spinner from 'components/Spinner'
 
 class ExchangePrice extends Component {
@@ -16,39 +16,50 @@ class ExchangePrice extends Component {
   static displayName = 'ExchangePrice'
 
   static propTypes = {
-    data: object,
+    allPricesQuery: object,
     exchange: string,
-    livePricesQuery: func,
-    movement: string,
     name: string,
-
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     // Subscribe to `CREATED`-mutations
-    // this.createMessageSubscription = this.props.livePricesQuery.subscribeToMore({
-    //   document: gql`
-    //       subscription {
-    //           Price(filter: {
-    //             mutation_in: [CREATED]
-    //           }) {
-    //               node {
-    //                 id
-    //                 timestamp
-    //                 value
-    //               }
-    //           }
-    //       }
-    //   `,
-    //   onError: (err) => console.error(err),
-    //   updateQuery: (previousState, { subscriptionData }) => {
-    //     const newMessage = subscriptionData.data.Message.node
-    //     const messages = previousState.allMessages.concat([newMessage])
-    //     return {
-    //       allMessages: messages,
-    //     }
-    //   },
-    // })
+    this.createMessageSubscription = this.props.allPricesQuery.subscribeToMore({
+      document: gql`
+          subscription {
+              Price(filter: {
+                mutation_in: [CREATED]
+              }) {
+                  node {
+                    id
+                    timestamp
+                    value
+                    exchange {
+                      name
+                    }
+                  }
+              }
+          }
+      `,
+      onError: (err) => console.error(err),
+
+      updateQuery: (previousState, { subscriptionData }) => {
+        console.log('previousState')
+        console.log(previousState)
+        const newPrice = subscriptionData.data.Price.node
+        console.log('newPrice:')
+        console.log(newPrice)
+        const prices = previousState.allPrices.concat([newPrice])
+        return {
+          allPrices: prices,
+        }
+      },
+    })
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.allPricesQuery.allPrices !== this.props.allPricesQuery.allPrices && this.endRef) {
+      this.endRef.scrollIntoView()
+    }
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -65,7 +76,7 @@ class ExchangePrice extends Component {
   }
 
   render = () => {
-    if (this.props.data.loading) {
+    if (this.props.allPricesQuery.loading) {
       return (
         <div className="exchange-price">
           <h1>{this.props.name}</h1>
@@ -74,8 +85,7 @@ class ExchangePrice extends Component {
       )
     }
 
-    console.log(this.props.data.allPrices)
-    const latestPrice = this.props.data.allPrices[0].value
+    const latestPrice = this.props.allPricesQuery.allPrices[0].value
 
     return (
       <div className="exchange-price">
@@ -94,6 +104,7 @@ class ExchangePrice extends Component {
   }
 }
 
-export default graphql(latestBtcPricesQuery, {
+export default graphql(allPrices, {
+  name: 'allPricesQuery',
   options: ({ exchange }) => ({ variables: { exchange } }),
 })(ExchangePrice)
