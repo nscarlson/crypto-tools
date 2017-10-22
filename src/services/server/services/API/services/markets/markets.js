@@ -28,13 +28,6 @@ markets.use('/markets/:pair', async (req, res) => {
      */
     try {
       let cryptowatchPairData = await cryptowatchClient.getPricesByPair(pair)
-      const ssPairData = await (axios({
-        responseType: 'json',
-        url: `api.shapeshift.io`,
-      })).data
-
-      console.log('ssPairData:')
-      console.log(ssPairData)
 
       // if returned an empty array, invert the prices
       if (cryptowatchPairData.length === 0) {

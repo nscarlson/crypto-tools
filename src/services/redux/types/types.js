@@ -1,7 +1,0 @@
-export * from './lists'
-export * from './modals'
-
-export const LOAD_SESSION_SUCCESS = 'LOAD_SESSION_SUCCESS'
-export const UPDATE_SESSION_SUCCESS = 'UPDATE_SESSION_SUCCESS'
-export const CREATE_SESSION_SUCCESS = 'CREATE_SESSION_SUCCESS'
-export const DELETE_SESSION_SUCCESS = 'DELETE_SESSION_SUCCESS'

@@ -37,14 +37,8 @@ const fetchBtcPrices = async (exchange) => {
     // Fetch latest prices from cryptowat.ch
     const pricesByPairResult = await cryptowatchClient.getPricesByPair('btc_usd')
 
-    console.log('pricesByPairResult:')
-    console.log(pricesByPairResult)
-
     btcPriceResults[exchange.name] = pricesByPairResult
       .filter((price) => exchange.name === price.exchange)
-
-    console.log('btcPriceResults:')
-    console.log(btcPriceResults)
   } catch (err) {
     console.error(err)
   }
@@ -52,17 +46,12 @@ const fetchBtcPrices = async (exchange) => {
 
 const mutateBtcPrices = async (data) => {
   try {
-    console.log('data:')
-    console.log(data)
-
     exchanges = await getExchanges()
 
     exchanges.map(async (exchange) => {
       const exchangeId = exchange.id
 
       data[exchange.name].map(async (price) => {
-        console.log('mutating:')
-        console.log(price)
         const pair = 'btc_usd'
         const timestamp = `${pair}_${price.exchange}_${Math.ceil(new Date().getTime() / 1000)}`
         const value = price.price
@@ -103,7 +92,6 @@ const mutateBtcPrices = async (data) => {
           responseType: 'json',
           url: 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis',
         })).data
-        console.log(mutationResult)
       })
     })
   } catch (err) {
@@ -126,8 +114,6 @@ const RefreshPrices = () => {
     } catch (err) {
       console.error(err)
     }
-    console.log('before mutate')
-    console.log(btcPriceResults)
     mutateBtcPrices(btcPriceResults)
 
     setTimeout(refreshPrices, 7000)

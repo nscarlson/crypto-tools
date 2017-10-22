@@ -1,5 +1,0 @@
-const LISTS_ADD_BOOK = 'LISTS_ADD_BOOK'
-
-export {
-  LISTS_ADD_BOOK,
-}

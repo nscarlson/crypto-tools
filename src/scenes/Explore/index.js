@@ -1,1 +1,1 @@
-export default from './ExploreContainer'
+export default from './Explore'

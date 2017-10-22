@@ -6,28 +6,18 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from 'components/App'
 import apollo from 'services/apollo'
-import { createStore } from 'services/redux/store'
 
 const init = () => {
-  const store = createStore(window.__INITIAL_STATE__)
-
   const doRender = (App) => {
     render(
       <AppContainer>
         <BrowserRouter>
-          <ApolloProvider client={apollo} store={store}>
+          <ApolloProvider client={apollo}>
             <App />
           </ApolloProvider>
         </BrowserRouter>
       </AppContainer>,
       document.getElementById('app'),
-      () => {
-        const initialState = document.getElementById('initial-state')
-
-        if (initialState) {
-          initialState.parentElement.removeChild(initialState)
-        }
-      }
     )
   }
 
