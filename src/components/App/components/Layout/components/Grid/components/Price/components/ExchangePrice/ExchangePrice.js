@@ -1,5 +1,5 @@
-import { object, string } from 'prop-types'
-import { graphql } from 'react-apollo'
+import { func, object, string } from 'prop-types'
+import { graphql, gql } from 'react-apollo'
 import React, { Component } from 'react'
 
 import { latestBtcPricesQuery } from 'services/queries/prices'
@@ -18,8 +18,37 @@ class ExchangePrice extends Component {
   static propTypes = {
     data: object,
     exchange: string,
+    livePricesQuery: func,
     movement: string,
     name: string,
+
+  }
+
+  componentDidMount = () => {
+    // Subscribe to `CREATED`-mutations
+    // this.createMessageSubscription = this.props.livePricesQuery.subscribeToMore({
+    //   document: gql`
+    //       subscription {
+    //           Price(filter: {
+    //             mutation_in: [CREATED]
+    //           }) {
+    //               node {
+    //                 id
+    //                 timestamp
+    //                 value
+    //               }
+    //           }
+    //       }
+    //   `,
+    //   onError: (err) => console.error(err),
+    //   updateQuery: (previousState, { subscriptionData }) => {
+    //     const newMessage = subscriptionData.data.Message.node
+    //     const messages = previousState.allMessages.concat([newMessage])
+    //     return {
+    //       allMessages: messages,
+    //     }
+    //   },
+    // })
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -45,7 +74,8 @@ class ExchangePrice extends Component {
       )
     }
 
-    const latestPrice = this.props.data.allPrices[0].ohlc[4]
+    console.log(this.props.data.allPrices)
+    const latestPrice = this.props.data.allPrices[0].value
 
     return (
       <div className="exchange-price">

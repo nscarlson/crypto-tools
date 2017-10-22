@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+import CryptowatchClient from '../API/services/CryptowatchClient'
 const getExchanges = async () => {
   let results = null
   try {
@@ -25,36 +26,46 @@ const getExchanges = async () => {
   }
 }
 
-const btcPriceResults = {}
+let exchanges = []
+
+const cryptowatchClient = new CryptowatchClient()
+
+const btcPriceResults = []
 
 const fetchBtcPrices = async (exchange) => {
   try {
-    // Compute UNIX timestamp for use with cryptowat.ch API
-    // 60 second interval for price ticker
-    const timestamp60 = Math.ceil(new Date().getTime() / 1000) - 60
+    // Fetch latest prices from cryptowat.ch
+    const pricesByPairResult = await cryptowatchClient.getPricesByPair('btc_usd')
 
-    // Fetch 60-second intervals from cryptowat.ch
-    btcPriceResults[exchange.name] = (await axios({
-      responseType: 'json',
-      url: `https://api.cryptowat.ch/markets/${exchange.name}/btcusd/ohlc?periods=60&after=${timestamp60}`,
-    })).data.result['60']
+    console.log('pricesByPairResult:')
+    console.log(pricesByPairResult)
+
+    btcPriceResults[exchange.name] = pricesByPairResult
+      .filter((price) => exchange.name === price.exchange)
+
+    console.log('btcPriceResults:')
+    console.log(btcPriceResults)
   } catch (err) {
     console.error(err)
   }
 }
 
 const mutateBtcPrices = async (data) => {
-  let exchanges = null
   try {
+    console.log('data:')
+    console.log(data)
+
     exchanges = await getExchanges()
 
     exchanges.map(async (exchange) => {
       const exchangeId = exchange.id
 
       data[exchange.name].map(async (price) => {
-        const ohlc = price
-        const timestamp = `${exchange.name}_60_${price[0]}`
-        const pair = 'btcusd'
+        console.log('mutating:')
+        console.log(price)
+        const pair = 'btc_usd'
+        const timestamp = `${pair}_${price.exchange}_${Math.ceil(new Date().getTime() / 1000)}`
+        const value = price.price
 
         const mutationResult = (await axios({
           data: {
@@ -63,33 +74,36 @@ const mutateBtcPrices = async (data) => {
               $exchangeId: ID!
               $pair: String!
               $timestamp: String!
-              $ohlc: [Float!]!
+              $value: Float!
             ) {
                 createPrice (
                   exchangeId: $exchangeId
-                  ohlc: $ohlc
                   pair: $pair
                   timestamp: $timestamp
+                  value: $value
                 ) {
                   id
+                  pair
+                  timestamp
+                  value
                   exchange {
                     name
                   }
-                  timestamp
                 }
               }
             `,
             variables: {
               exchangeId,
-              ohlc,
               pair,
               timestamp,
+              value,
             },
           },
           method: 'post',
           responseType: 'json',
           url: 'https://api.graph.cool/simple/v1/cj8ff7iah067k01397yllgnis',
         })).data
+        console.log(mutationResult)
       })
     })
   } catch (err) {
@@ -104,21 +118,19 @@ const mutateBtcPrices = async (data) => {
 
 const RefreshPrices = () => {
   (async function refreshPrices () {
-    let exchanges = null
-
     try {
       exchanges = await getExchanges()
-
       await Promise.all(
         exchanges.map(fetchBtcPrices)
       )
     } catch (err) {
       console.error(err)
     }
-
+    console.log('before mutate')
+    console.log(btcPriceResults)
     mutateBtcPrices(btcPriceResults)
 
-    setTimeout(refreshPrices, 60000)
+    setTimeout(refreshPrices, 7000)
   })()
 }
 

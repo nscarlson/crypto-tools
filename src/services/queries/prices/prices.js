@@ -17,8 +17,9 @@ const latestBtcPricesQuery = gql`
       exchange {
         name
       }
+      pair
       timestamp
-      ohlc
+      value
     }
   }
 `
