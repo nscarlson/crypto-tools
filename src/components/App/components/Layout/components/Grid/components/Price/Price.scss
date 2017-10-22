@@ -4,25 +4,11 @@
   color: $green;
 }
 
-.arrow-up {
-  width: 0; 
-  height: 0; 
-  display: inline;
-  position: relative;
-  bottom: 15px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid green;
-}
+div.price-container {
+  display: -webkit-flex;
+  display: flex;                  /* establish flex container */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+  align-items: center;
+  justify-content: center;
 
-.arrow-down {
-  width: 0; 
-  height: 0; 
-  display: inline;
-  position: relative;
-  top: 15px;
-
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid red;
 }

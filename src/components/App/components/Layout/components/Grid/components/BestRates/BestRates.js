@@ -170,6 +170,10 @@ class BestRates extends Component {
         <div className="title">
           <span className="title">{`Best BTC Exchange Rates`}</span>
         </div>
+        {'Amount'}
+        <div>
+          <input style={{ fontSize: '20em' }} />
+        </div>
 
         {'I want to exchange'}
         <div className="select-asset-container">

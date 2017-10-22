@@ -6,24 +6,61 @@ import { latestBtcPricesQuery } from 'services/queries/prices'
 import Spinner from 'components/Spinner'
 
 class ExchangePrice extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      movement: 'up',
+    }
+  }
+
   static displayName = 'ExchangePrice'
 
   static propTypes = {
     data: object,
     exchange: string,
+    movement: string,
+    name: string,
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.exchange.price === this.props.exchange.price) {
+      this.setState({
+        movement: '',
+      })
+    } else {
+      this.setState({
+        movement: (nextProps.exchange.price > this.props.exchange.price ? 'up' : 'down'),
+      })
+    }
+    setTimeout(this.resetMovement, 2500)
   }
 
   render = () => {
     if (this.props.data.loading) {
-      return (<div className="exchange-price">{this.props.exchange} <Spinner /></div>)
+      return (
+        <div className="exchange-price">
+          <h1>{this.props.name}</h1>
+          <Spinner />
+        </div>
+      )
     }
 
-    const exchange = this.props.exchange
     const latestPrice = this.props.data.allPrices[0].ohlc[4]
 
     return (
-      <div className="exchange-price">{`${exchange} ${latestPrice}`}</div>
+      <div className="exchange-price">
+        <h1>{this.props.name}</h1>
+        <span className={`live-price ${this.state.movement}`}>
+          {latestPrice}
+        </span>
+      </div>
     )
+  }
+
+  resetMovement = () => {
+    this.setState({
+      movement: '',
+    })
   }
 }
 

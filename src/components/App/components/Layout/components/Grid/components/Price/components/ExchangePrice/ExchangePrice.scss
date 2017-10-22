@@ -8,3 +8,20 @@
     -webkit-transform: rotate(1turn);
   }
 }
+
+.exchange-price {
+  text-align: center;
+  width: 200px;
+}
+
+span.up {
+  color: $green;
+}
+
+span.down {
+  color: $red;
+}
+
+.live-price {
+  font-weight: bolder;
+}

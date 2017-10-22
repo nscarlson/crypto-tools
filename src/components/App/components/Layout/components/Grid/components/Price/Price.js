@@ -7,10 +7,9 @@ class Price extends Component {
 
   render = () => (
     <div className="price-container">
-      <ExchangePrice exchange="bitstamp" pair="btcusd" />
-      <ExchangePrice exchange="kraken" pair="btcusd" />
-      <ExchangePrice exchange="gemini" pair="btcusd" />
-      <div className="arrow-up" />
+      <ExchangePrice exchange="bitstamp" movement="up" name="Bitstamp" pair="btcusd" />
+      <ExchangePrice exchange="kraken" movement="down" name="Kraken" pair="btcusd" />
+      <ExchangePrice exchange="gemini" movement="up" name="Gemini" pair="btcusd" />
     </div>
   )
 }

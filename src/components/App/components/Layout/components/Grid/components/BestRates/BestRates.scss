@@ -7,7 +7,7 @@ div.best-rates-container {
 div.select-asset-container {
   display: -webkit-flex;
   display: flex;                  /* establish flex container */
-  flex-direction: left;            /* default value; can be omitted */
+  flex-direction: left;           /* default value; can be omitted */
   flex-wrap: nowrap;              /* default value; can be omitted */
 }
 
@@ -28,6 +28,6 @@ img.exchange-icon {
 div.select-container {
   display: -webkit-flex;
   display: flex;                  /* establish flex container */
-  flex-direction: left;            /* default value; can be omitted */
+  flex-direction: left;           /* default value; can be omitted */
   flex-wrap: nowrap;              /* default value; can be omitted */
 }

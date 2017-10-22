@@ -18,7 +18,7 @@ class ExchangeRate extends Component {
       <div className="exchange-price-container">
         {this.props.exchange}
         <br />
-        {`Price: ${this.props.price}`}
+        {`Price: ${(this.props.price).toPrecision(6)}`}
       </div>
       <div className="exchange-price-difference">
         {(this.props.price === this.props.lowestPrice)
