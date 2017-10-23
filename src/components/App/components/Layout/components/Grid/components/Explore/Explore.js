@@ -8,7 +8,7 @@ class Explore extends Component {
   render = () =>
     <div id="explore-container">
       <div className="title">
-        <span className="title">Lookup Address</span>
+        <span className="title">Lookup Address Information</span>
       </div>
 
       <AddressLookup />

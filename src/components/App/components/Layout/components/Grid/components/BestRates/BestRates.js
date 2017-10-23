@@ -177,46 +177,53 @@ class BestRates extends Component {
     return (
       <div className="best-rates-container">
         <div className="title">
-          <span className="title">{`Best BTC Exchange Rates`}</span>
+          <span className="title">{`Search Best Crypto Exchange Rates`}</span>
         </div>
-        <div>
-          {'I have'}
-          <input onChange={this.handleAmountChange} />
+        <div className="from-container">
+          <div className="from-left">
+            {'I have'}
+            <input className="amount" onChange={this.handleAmountChange} placeholder={`${this.state.selectedFromOption} amount`} />
+          </div>
+
+          <div className="from-right">
+            {'of'}
+            <div className="select-asset-container">
+              <Select
+                onChange={this.handleFromSelection}
+                options={this.state.options}
+                value={this.state.selectedFromOption}
+              />
+              <img
+                height={30}
+                src={`${this.getCoinURL(this.state.selectedFromOption)}.png`}
+                style={{ verticalAlign: 'middle' }}
+                width={30}
+              />
+            </div>
+
+          </div>
         </div>
 
-        <div className="select-asset-container">
-          <Select
-            onChange={this.handleFromSelection}
-            options={this.state.options}
-            value={this.state.selectedFromOption}
-          />
-          <img
-            height={30}
-            src={`${this.getCoinURL(this.state.selectedFromOption)}.png`}
-            style={{ verticalAlign: 'middle' }}
-            width={30}
-          />
-        </div>
+        <div className="to-container">
+          {'to exchange for'}
 
-        {'to exchange for'}
-
-        <div className="select-asset-container">
-          <Select
-            onChange={this.handleToSelection}
-            options={this.state.options}
-            value={this.state.selectedToOption}
-          />
-          <img
-            height={30}
-            src={`${this.getCoinURL(this.state.selectedToOption)}.png`}
-            style={{ verticalAlign: 'middle' }}
-            width={30}
-          />
+          <div className="select-asset-container">
+            <Select
+              onChange={this.handleToSelection}
+              options={this.state.options}
+              value={this.state.selectedToOption}
+            />
+            <img
+              height={30}
+              src={`${this.getCoinURL(this.state.selectedToOption)}.png`}
+              style={{ verticalAlign: 'middle' }}
+              width={30}
+            />
+          </div>
         </div>
 
         <div className="exchange-list">
-        Best Exchange Rates:
-        {exchangePrices}
+          {exchangePrices}
         </div>
 
       </div>

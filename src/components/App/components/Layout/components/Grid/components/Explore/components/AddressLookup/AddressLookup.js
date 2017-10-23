@@ -21,6 +21,7 @@ class AddressLookup extends Component {
   render = () => (
     <div>
       <input
+        className="address"
         onChange={this.handleUpdateAddress}
         placeholder="0x123456789abcdef"
       />

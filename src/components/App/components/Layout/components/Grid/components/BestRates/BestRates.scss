@@ -4,11 +4,42 @@ div.best-rates-container {
   height: 100%;
 }
 
+input.amount {
+  height: 36px;
+  width: 200px;
+  border: 1px solid lightgray;
+  display: block;
+  font-weight: 300;
+  font-size: 1em;
+  color: $black;
+  padding-left: 10px;
+}
+
+div.from-container {
+  height: 90px;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: left;
+  flex-wrap: nowrap;
+}
+
+div.from-left {
+  width: 250px;
+}
+
+div.from-right {
+  width: 250px;
+}
+
+div.to-container {
+  height: 80px;
+}
+
 div.select-asset-container {
   display: -webkit-flex;
-  display: flex;                  /* establish flex container */
-  flex-direction: left;           /* default value; can be omitted */
-  flex-wrap: nowrap;              /* default value; can be omitted */
+  display: flex;
+  flex-direction: left;
+  flex-wrap: nowrap;
 }
 
 div.Select {
@@ -16,7 +47,7 @@ div.Select {
 }
 
 div.exchange-list {
-  height: 465px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -27,7 +58,7 @@ img.exchange-icon {
 
 div.select-container {
   display: -webkit-flex;
-  display: flex;                  /* establish flex container */
-  flex-direction: left;           /* default value; can be omitted */
-  flex-wrap: nowrap;              /* default value; can be omitted */
+  display: flex;
+  flex-direction: left;
+  flex-wrap: nowrap;
 }
