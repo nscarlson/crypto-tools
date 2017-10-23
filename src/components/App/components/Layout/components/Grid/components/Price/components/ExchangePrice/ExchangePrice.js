@@ -16,48 +16,13 @@ class ExchangePrice extends Component {
   static displayName = 'ExchangePrice'
 
   static propTypes = {
-    allPricesQuery: object,
+    data: object,
     exchange: string,
     name: string,
   }
 
-  componentDidMount = async () => {
-    // Subscribe to `CREATED`-mutations
-    this.createMessageSubscription = this.props.allPricesQuery.subscribeToMore({
-      document: gql`
-          subscription {
-              Price(filter: {
-                mutation_in: [CREATED]
-              }) {
-                  node {
-                    id
-                    timestamp
-                    value
-                    exchange {
-                      name
-                    }
-                  }
-              }
-          }
-      `,
-      onError: (err) => console.error(err),
-
-      updateQuery: (previousState, { subscriptionData }) => {
-        console.log('previousState')
-        console.log(previousState)
-        const newPrice = subscriptionData.data.Price.node
-        console.log('newPrice:')
-        console.log(newPrice)
-        const prices = previousState.allPrices.concat([newPrice])
-        return {
-          allPrices: prices,
-        }
-      },
-    })
-  }
-
   componentDidUpdate = (prevProps) => {
-    if (prevProps.allPricesQuery.allPrices !== this.props.allPricesQuery.allPrices && this.endRef) {
+    if (prevProps.data.allPrices !== this.props.data.allPrices && this.endRef) {
       this.endRef.scrollIntoView()
     }
   }
@@ -76,7 +41,8 @@ class ExchangePrice extends Component {
   }
 
   render = () => {
-    if (this.props.allPricesQuery.loading) {
+    const { data: { loading, error, exchange } } = this.props
+    if (loading) {
       return (
         <div className="exchange-price">
           <h1>{this.props.name}</h1>
@@ -85,7 +51,11 @@ class ExchangePrice extends Component {
       )
     }
 
-    const latestPrice = this.props.allPricesQuery.allPrices[0].value
+    if (error) {
+      return (<div>ERROR</div>)
+    }
+
+    const latestPrice = this.props.data.allPrices[0].value
 
     return (
       <div className="exchange-price">
@@ -105,6 +75,5 @@ class ExchangePrice extends Component {
 }
 
 export default graphql(allPrices, {
-  name: 'allPricesQuery',
-  options: ({ exchange }) => ({ variables: { exchange } }),
+  options: ({ exchange }) => ({ variables: { exchange }, pollInterval: 3000 }),
 })(ExchangePrice)

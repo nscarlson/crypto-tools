@@ -77,8 +77,6 @@ class CryptowatchClient {
       })
       .sort((a, b) => a.price - b.price)
 
-    marketsResult[0] && console.log(`${marketsResult[0].exchange} offers the best ${symbols[0]} price of ${marketsResult[0].price} ${symbols[1]}`)
-
     return marketsResult
   }
 }
