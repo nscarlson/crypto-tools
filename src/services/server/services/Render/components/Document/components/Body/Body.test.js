@@ -38,8 +38,7 @@ describe('<Body />', () => {
   it('renders the content', () => {
     expect(wrapper.contains(
       <body>
-        <div dangerouslySetInnerHTML={{ __html: props.children }} id="app" />
-        <InitialState initialState={props.initialState} />
+        <div id="app" />
         <ClientScript src={file.manifest.js} />
         <ClientScript src={file.vendor.js} />
         <ClientScript src={file.client.js} />
