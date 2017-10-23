@@ -23,7 +23,7 @@ class AddressLookup extends Component {
       <input
         className="address"
         onChange={this.handleUpdateAddress}
-        placeholder="0x123456789abcdef"
+        placeholder="1FmDdtA9QrW1jwdA5cXB5cHEKXUF6PzV8w"
       />
       <Address address={this.state.address} />
     </div>

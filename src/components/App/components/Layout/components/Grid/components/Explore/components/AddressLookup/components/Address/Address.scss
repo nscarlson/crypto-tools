@@ -1,0 +1,23 @@
+div.tx-hash {
+  font-weight: bold;
+}
+
+div.tx-flex {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: left;
+  flex-wrap: nowrap;
+}
+
+div.out {
+  background-color: lightcoral;
+}
+
+div.in {
+  background-color: lightgreen;
+}
+
+div.price {
+  font-weight: bold;
+}
+

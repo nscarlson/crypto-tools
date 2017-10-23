@@ -42,21 +42,44 @@ class Address extends Component {
   }
 
   render = () => {
+    const { address } = this.props
+
     if (this.state.addressData) {
       const txs = this.state.addressData.txs
 
+      txs.map((tx) => {
+        tx.inputs.map((input) => {
+
+        })
+
+        tx.out.map((out) => {
+
+        })
+      })
+
       const transactions = txs.map((tx) => (
-          <div key={tx.hash}>
-            {tx.hash}
-            <div className="inputs">{tx.inputs.map((input) => (<div>{input.prev_out.addr}</div>))}</div>
+        <div className="transaction" key={tx.hash}>
+          <div className="tx-hash">{tx.hash}</div>
+
+          <div className="tx-flex">
+            <div className="inputs">{tx.inputs.map((input) => (
+              <div className={input.prev_out.addr === address ? 'out' : ''}>
+                {input.prev_out.addr} {input.prev_out.value / 100000000} BTC
+              </div>))}
+            </div>
             ->
-            <div className="outputs">{tx.out.map((out) => (<div>{out.addr}</div>))}</div>
+            <div className="outputs">{tx.out.map((out) => (
+              <div className={out.addr === address ? 'in' : ''}>
+                {out.addr}
+                <div className="price">{out.value / 100000000} BTC</div>
+              </div>))}
+            </div>
           </div>
-        ))
+        </div>
+      ))
 
       return (
         <div>
-          {this.props.address}
           {transactions}
         </div>
 
@@ -67,4 +90,4 @@ class Address extends Component {
   }
 }
 
-export default graphql(getBtcAddress, { name: 'getBtcAddressQuery' }, { options: ({ address }) => ({ variables: { address } }) })(Address)
+export default Address
