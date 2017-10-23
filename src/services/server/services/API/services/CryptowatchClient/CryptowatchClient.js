@@ -75,7 +75,7 @@ class CryptowatchClient {
         const price = prices[value]
         return { exchange: exchange, price }
       })
-      .sort((a, b) => a.price - b.price)
+      .sort((a, b) => b.price - a.price)
 
     return marketsResult
   }
