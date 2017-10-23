@@ -137,6 +137,12 @@ class BestRates extends Component {
     }
   }
 
+  handleAmountChange = (amount) => {
+    this.setState({
+      amount: amount.target.value,
+    })
+  }
+
   handleFromSelection = (option) => {
     this.setState({
       selectedFromOption: option.value,
@@ -157,10 +163,13 @@ class BestRates extends Component {
     const exchangePrices = exchangeRates.map(
       (exchange) => (
         <ExchangeRate
+          amount={this.state.amount}
           exchange={exchange.exchange}
+          from={this.state.selectedFromOption}
           key={exchange.exchange}
           lowestPrice={this.state.exchangeRates[0].price}
           price={exchange.price}
+          to={this.state.selectedToOption}
         />
       )
     )
@@ -170,12 +179,11 @@ class BestRates extends Component {
         <div className="title">
           <span className="title">{`Best BTC Exchange Rates`}</span>
         </div>
-        {'Amount'}
         <div>
-          <input style={{ fontSize: '20em' }} />
+          {'I have'}
+          <input onChange={this.handleAmountChange} />
         </div>
 
-        {'I want to exchange'}
         <div className="select-asset-container">
           <Select
             onChange={this.handleFromSelection}
@@ -190,7 +198,7 @@ class BestRates extends Component {
           />
         </div>
 
-        {'for'}
+        {'to exchange for'}
 
         <div className="select-asset-container">
           <Select
