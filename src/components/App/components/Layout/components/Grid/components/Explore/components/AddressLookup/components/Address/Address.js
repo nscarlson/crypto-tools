@@ -1,12 +1,6 @@
 import axios from 'axios'
 import { string } from 'prop-types'
-import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
-
-import { getBtcAddress } from 'services/queries/address'
-// import Transaction from './components/Transaction'
-
-// import TransactionContainer from './components/transaction/TransactionContainer'
 
 class Address extends Component {
   static displayName = 'Address'
