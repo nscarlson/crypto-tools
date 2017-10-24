@@ -22,16 +22,18 @@ class Address extends Component {
 
   fetchAddress = async (address) => {
     let result = null
-    try {
-      result = (await axios({
-        responseType: 'json',
-        url: `/api/blockchain/rawaddr/${address}`,
-        withCredentials: true,
-      })).data
+    if (address) {
+      try {
+        result = (await axios({
+          responseType: 'json',
+          url: `/api/blockchain/rawaddr/${address}`,
+          withCredentials: true,
+        })).data
 
-      this.setState({ addressData: result })
-    } catch (err) {
-      console.error(err)
+        this.setState({ addressData: result })
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 
