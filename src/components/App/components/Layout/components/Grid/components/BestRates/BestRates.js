@@ -8,7 +8,7 @@ class BestRates extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      exchangeAmount: 1,
+      amount: 1,
       exchangeRates: [],
       selectedFromOption: 'eth',
       selectedToOption: 'btc',
@@ -182,7 +182,7 @@ class BestRates extends Component {
         <div className="from-container">
           <div className="from-left">
             {'I have'}
-            <input className="amount" onChange={this.handleAmountChange} placeholder={`${this.state.selectedFromOption} amount`} />
+            <input className="amount" onChange={this.handleAmountChange} placeholder={`${this.state.selectedFromOption} amount`} value={this.state.amount} />
           </div>
 
           <div className="from-right">
