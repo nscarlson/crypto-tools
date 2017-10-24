@@ -1,11 +1,8 @@
 import React from 'react'
-import RGL from 'react-grid-layout'
 
 import BestRates from './components/Grid/components/BestRates'
 import Explore from './components/Grid/components/Explore'
 import Price from './components/Grid/components/Price'
-
-const ReactGridLayout = RGL.WidthProvider(RGL)
 
 const layout = [
   { i: 'price', x: 0, y: 0, w: 12, h: 12, static: true },
@@ -15,17 +12,23 @@ const layout = [
 
 const Layout = () => (
   <div className="layout">
-    <ReactGridLayout cols={12} layout={layout} rowHeight={15} width={1200}>
+    <div className="react-grid-item">
       <div key="price">
         <Price />
       </div>
+    </div>
+
+    <div className="react-grid-item">
       <div key="bestrates">
         <BestRates />
       </div>
+    </div>
+
+    <div className="react-grid-item">
       <div key="address1">
         <Explore />
       </div>
-    </ReactGridLayout>
+    </div>
   </div>
 )
 
