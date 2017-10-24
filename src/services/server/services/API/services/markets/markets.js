@@ -18,7 +18,6 @@ markets.use('/markets/:pair', async (req, res) => {
      */
     try {
       let cryptowatchPairData = await cryptowatchClient.getPricesByPair(pair)
-
       /**
        * Easy fix for exchanges supporting certain pairs with a fixed "base"
        * currency. For example, DogeCoin is usually considered a "bitcoin market"
@@ -37,6 +36,7 @@ markets.use('/markets/:pair', async (req, res) => {
           }
         })
       }
+      cryptowatchPairData.sort((a, b) => b.price - a.price)
 
       // if returned array is still empty, exchange info for pair is not offered by cryptowat.ch
       if (cryptowatchPairData.length === 0) {
