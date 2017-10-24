@@ -107,6 +107,8 @@ const mutateBtcPrices = async (data) => {
 const RefreshPrices = () => {
   (async function refreshPrices () {
     try {
+      console.log('refreshing price data')
+
       exchanges = await getExchanges()
       await Promise.all(
         exchanges.map(fetchBtcPrices)
