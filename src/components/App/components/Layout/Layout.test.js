@@ -1,26 +1,23 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import RGL, { WidthProvider } from 'react-grid-layout'
+import toJson from 'enzyme-to-json'
 
 import Layout from './Layout'
-import Explore from 'scenes/Explore'
+import BestRates from './components/Grid/components/BestRates'
+import Explore from './components/Grid/components/Explore'
 import Price from './components/Grid/components/Price'
 
-const ReactGridLayout = WidthProvider(RGL)
-
-const layout = [
-  { i: 'price', x: 0, y: 0, w: 12, h: 2, static: true },
-  { i: 'menu', x: 0, y: 1, w: 2, h: 10, static: true },
-  { i: 'explore', x: 2, y: 2, w: 12, h: 20 },
-]
+jest.mock('react-grid-layout')
 
 describe('<Layout />', () => {
-  let props, wrapper
+  let layout, props, ReactGridLayout, wrapper
 
   beforeEach(() => {
     props = {
       children: <h1>{Math.random()}</h1>,
     }
+    ReactGridLayout = require('react-grid-layout')
+    ReactGridLayout.WidthProvider.mockImplementation((RGL) => {})
 
     wrapper = shallow(<Layout {...props} />)
   })
@@ -30,17 +27,12 @@ describe('<Layout />', () => {
   })
 
   it('renders correctly', () => {
-    expect(wrapper.contains(
-      <div className="layout">
-        <ReactGridLayout layout={layout} cols={12} rowHeight={15} width={1200}>
-          <div key="price">
-            <Price />
-          </div>
-          <div key="explore">
-            <Explore />
-          </div>
-        </ReactGridLayout>
-      </div>
-    )).toBe(true)
+    layout = [
+      { i: 'price', x: 0, y: 0, w: 12, h: 12, static: true },
+      { i: 'bestrates', x: 0, y: 12, w: 12, h: 26, static: true },
+      { i: 'address1', x: 0, y: 38, w: 12, h: 20, static: true },
+    ]
+
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 })
