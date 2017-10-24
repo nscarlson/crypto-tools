@@ -1,5 +1,5 @@
-import { func, object, string } from 'prop-types'
-import { graphql, gql } from 'react-apollo'
+import { object, string } from 'prop-types'
+import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
 import { allPrices } from 'services/queries/prices'
@@ -41,7 +41,8 @@ class ExchangePrice extends Component {
   }
 
   render = () => {
-    const { data: { loading, error, exchange } } = this.props
+    const { data: { loading, error } } = this.props
+
     if (loading) {
       return (
         <div className="exchange-price">
