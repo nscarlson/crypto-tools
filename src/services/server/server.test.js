@@ -1,6 +1,7 @@
 jest.mock('./services/HMR')
 jest.mock('./services/Render')
 jest.mock('./services/StaticFiles')
+jest.mock('./services/RefreshPrices')
 
 let app, init
 

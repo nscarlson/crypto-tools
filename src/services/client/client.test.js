@@ -1,6 +1,7 @@
 import { init } from './client'
 
 jest.mock('react-dom')
+jest.mock('components/App')
 
 describe('client', () => {
   describe('init()', () => {
@@ -9,9 +10,7 @@ describe('client', () => {
     beforeEach(() => {
       render = require('react-dom').render
 
-      render.mockImplementation((element, container, callback) => {
-        callback()
-      })
+      render.mockImplementation((element, container) => {})
 
       jest.spyOn(document, 'getElementById').mockImplementation(() => null)
     })
@@ -19,23 +18,8 @@ describe('client', () => {
     it('renders the app', () => {
       init()
 
-      expect(render).toHaveBeenCalledWith(expect.anything(), null, expect.anything())
+      expect(render).toHaveBeenCalledWith(expect.anything(), null)
       expect(document.getElementById).toHaveBeenCalledWith('app')
-      expect(document.getElementById).toHaveBeenCalledWith('initial-state')
-    })
-
-    it('removes the initial-state container if it exists', () => {
-      const initialState = {
-        parentElement: {
-          removeChild: jest.fn(),
-        },
-      }
-
-      jest.spyOn(document, 'getElementById').mockImplementation(() => initialState)
-
-      init()
-
-      expect(initialState.parentElement.removeChild).toHaveBeenCalledWith(initialState)
     })
   })
 })
