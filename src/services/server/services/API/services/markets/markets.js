@@ -1,19 +1,9 @@
-import axios from 'axios'
 import { Router } from 'express'
 import CryptowatchClient from '../CryptowatchClient'
 
 const markets = Router()
 const cryptowatchClient = new CryptowatchClient()
 
-/**
- * Easy fix for exchanges supporting certain pairs with a fixed "base"
- * currency. For example, DogeCoin is usually considered a "bitcoin market"
- * coin, only displayed in terms of cost in bitcoin. To display Bitcoin in terms
- * of DogeCoin price, we can simply invert the XDG/BTC pair given
- * to us by Cryptowatch.
- *
- * Also note: in the case of ETH/BTC pair, btc takes precedence as the "base" currency
- */
 markets.use('/markets/:pair', async (req, res) => {
   const pair = req.params.pair
 
@@ -29,7 +19,14 @@ markets.use('/markets/:pair', async (req, res) => {
     try {
       let cryptowatchPairData = await cryptowatchClient.getPricesByPair(pair)
 
-      // if returned an empty array, invert the prices
+      /**
+       * Easy fix for exchanges supporting certain pairs with a fixed "base"
+       * currency. For example, DogeCoin is usually considered a "bitcoin market"
+       * coin, only displayed in terms of cost in bitcoin. To display Bitcoin in terms
+       * of DogeCoin price, we can simply invert the XDG/BTC pair given
+       * to us by Cryptowatch.
+       *
+       */
       if (cryptowatchPairData.length === 0) {
         cryptowatchPairData = await cryptowatchClient.getPricesByPair(`${symbols[1]}_${symbols[0]}`)
 

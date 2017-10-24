@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 class CryptowatchClient {
   constructor () {
@@ -14,9 +15,25 @@ class CryptowatchClient {
   }
 
   /**
+   * Returns a list of available assets from cryptowat.ch
+   */
+  getAssets = async () => {
+    let result = null
+    try {
+      result = (await axios({
+        responseType: 'json',
+        url: `${this.client.baseURL}/assets`,
+      })).data.result
+      return result
+    } catch (err) {
+      console.error('ERROR', err)
+    }
+  }
+
+  /**
    *  Returns a market's latest price
    */
-  getMarketPrice = async({ pair, market }) => {
+  getMarketPrice = async ({ pair, market }) => {
     let result = null
 
     try {

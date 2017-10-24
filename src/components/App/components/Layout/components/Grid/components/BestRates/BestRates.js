@@ -30,8 +30,8 @@ class BestRates extends Component {
     try {
       assets = (await axios({
         responseType: 'json',
-        url: 'https://api.cryptowat.ch/assets',
-      })).data.result
+        url: '/api/assets',
+      })).data
 
       this.generateOptions(assets)
     } catch (err) {

@@ -1,10 +1,12 @@
 import { Router } from 'express'
 
-import markets from './services/markets'
+import assets from './services/assets'
 import blockchain from './services/blockchain'
+import markets from './services/markets'
 
 const API = Router()
 
+API.use('/api/', assets)
 API.use('/api/', markets)
 API.use('/api/', blockchain)
 API.use('/api/', (req, res) => {

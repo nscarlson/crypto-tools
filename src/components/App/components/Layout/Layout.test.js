@@ -10,16 +10,13 @@ import Price from './components/Grid/components/Price'
 jest.mock('react-grid-layout')
 
 describe('<Layout />', () => {
-  let layout, props, ReactGridLayout, wrapper
+  let ReactGridLayout, wrapper
 
   beforeEach(() => {
-    props = {
-      children: <h1>{Math.random()}</h1>,
-    }
     ReactGridLayout = require('react-grid-layout')
     ReactGridLayout.WidthProvider.mockImplementation((RGL) => {})
 
-    wrapper = shallow(<Layout {...props} />)
+    wrapper = shallow(<Layout />)
   })
 
   it('has the correct displayName', () => {
@@ -27,12 +24,6 @@ describe('<Layout />', () => {
   })
 
   it('renders correctly', () => {
-    layout = [
-      { i: 'price', x: 0, y: 0, w: 12, h: 12, static: true },
-      { i: 'bestrates', x: 0, y: 12, w: 12, h: 26, static: true },
-      { i: 'address1', x: 0, y: 38, w: 12, h: 20, static: true },
-    ]
-
     expect(toJson(wrapper)).toMatchSnapshot()
   })
 })
