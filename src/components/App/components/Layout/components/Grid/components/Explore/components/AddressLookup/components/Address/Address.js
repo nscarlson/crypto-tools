@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from 'moment'
 import { string } from 'prop-types'
 import React, { Component } from 'react'
 
@@ -37,6 +38,8 @@ class Address extends Component {
     }
   }
 
+  formatTimestamp = (timestamp) => moment.unix(timestamp).format('M/D/YYYY H:mm')
+
   render = () => {
     const { address } = this.props
 
@@ -55,6 +58,7 @@ class Address extends Component {
 
       const transactions = txs.map((tx) => (
         <div className="transaction" key={tx.hash}>
+          <div className="tx-time">{this.formatTimestamp(tx.time)}</div>
           <div className="tx-hash">{tx.hash}</div>
 
           <div className="tx-flex">
