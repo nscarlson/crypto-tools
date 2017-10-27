@@ -5,14 +5,11 @@ import Select from 'react-select'
 import ExchangeRate from './components/ExchangeRate'
 
 class BestRates extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      amount: 1,
-      exchangeRates: [],
-      selectedFromOption: 'eth',
-      selectedToOption: 'btc',
-    }
+  state = {
+    amount: 1,
+    exchangeRates: [],
+    selectedFromOption: 'eth',
+    selectedToOption: 'btc',
   }
 
   coinMap = new Map()
@@ -20,7 +17,7 @@ class BestRates extends Component {
   componentDidMount () {
     this.fetchAssets()
     this.fetchCoinMap()
-    this.fetchExchangeRates()
+    this.fetchExchangeRates(this.state.selectedFromOption, this.state.selectedToOption)
   }
 
   // fetch tradeable assets from cryptowat.ch api
