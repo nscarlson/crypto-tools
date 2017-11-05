@@ -22,15 +22,13 @@ class BestRates extends Component {
 
   // fetch tradeable assets from cryptowat.ch api
   fetchAssets = async () => {
-    let assets = null
-
     try {
-      assets = (await axios({
-        responseType: 'json',
-        url: '/api/assets',
-      })).data
-
-      this.generateOptions(assets)
+      this.generateOptions((
+        await axios({
+          responseType: 'json',
+          url: '/api/assets',
+        })).data
+      )
     } catch (err) {
       console.error(err)
     }
@@ -59,35 +57,31 @@ class BestRates extends Component {
   }
 
   fetchExchangeRates = async (symbol1, symbol2) => {
-    let exchangeRates = {}
-
     try {
-      exchangeRates = (await axios({
-        responseType: 'json',
-        url: `/api/markets/${symbol1}_${symbol2}`,
-      })).data
-
       this.setState({
-        exchangeRates,
+        exchangeRates: (await axios({
+          responseType: 'json',
+          url: `/api/markets/${symbol1}_${symbol2}`,
+        })).data,
       })
-
-      return exchangeRates
     } catch (err) {
       console.error(err)
+
+      this.setState({
+        exchangeRates: [],
+      })
     }
   }
 
   generateOptions = async (assets) => {
-    const options = []
-
-    assets.map((asset) => {
-      options.push({
-        label: `${asset.name} (${asset.id})`,
-        value: asset.id,
-      })
+    this.setState({
+      options: assets.map((asset) => (
+        {
+          label: `${asset.name} (${asset.symbol})`,
+          value: asset.symbol,
+        }
+    )),
     })
-
-    this.setState({ options })
   }
 
   getCoinURL = (symbol) => {
@@ -115,6 +109,7 @@ class BestRates extends Component {
       const baseURL = 'https://coincap.io/images/coins/'
 
       let name = this.coinMap.get(symbol)
+
       if (name) {
         name = name.replace(/[^a-z]/gi, '')
       }
@@ -156,8 +151,10 @@ class BestRates extends Component {
 
   render = () => {
     const exchangeRates = this.state.exchangeRates
+    let exchangePrices
 
-    const exchangePrices = exchangeRates.map(
+    if (exchangeRates.length > 0) {
+      exchangePrices = exchangeRates.map(
       (exchange) => (
         <ExchangeRate
           amount={this.state.amount}
@@ -170,6 +167,11 @@ class BestRates extends Component {
         />
       )
     )
+    } else {
+      exchangePrices = <div>
+        {`Trading pair ${this.state.selectedFromOption}_${this.state.selectedToOption} not available on known exchanges`}
+      </div>
+    }
 
     return (
       <div className="best-rates-container">
