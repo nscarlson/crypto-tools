@@ -5,20 +5,20 @@ jest.mock('components/App')
 
 describe('client', () => {
   describe('init()', () => {
-    let render
+    let hydrate
 
     beforeEach(() => {
-      render = require('react-dom').render
+      hydrate = require('react-dom').hydrate
 
-      render.mockImplementation((element, container) => {})
+      hydrate.mockImplementation((element, container) => {})
 
       jest.spyOn(document, 'getElementById').mockImplementation(() => null)
     })
 
-    it('renders the app', () => {
+    it('hydrates the app', () => {
       init()
 
-      expect(render).toHaveBeenCalledWith(expect.anything(), null)
+      expect(hydrate).toHaveBeenCalledWith(expect.anything(), null)
       expect(document.getElementById).toHaveBeenCalledWith('app')
     })
   })

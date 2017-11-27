@@ -21,5 +21,9 @@
     "node_modules",
     "src"
   ],
-  "setupTestFrameworkScriptFile": "./src/setupTests.js"
+  "setupTestFrameworkScriptFile": "./src/setupTests.js",
+
+  "setupFiles": [
+    "raf/polyfill"
+  ]
 }

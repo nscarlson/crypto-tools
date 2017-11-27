@@ -1,6 +1,6 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { render } from 'react-dom'
+import { hydrate } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ import apollo from 'services/apollo'
 
 const init = () => {
   const doRender = (App) => {
-    render(
+    hydrate(
       <AppContainer>
         <BrowserRouter>
           <ApolloProvider client={apollo}>
