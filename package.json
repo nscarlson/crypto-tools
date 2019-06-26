@@ -46,7 +46,7 @@
     "graphql-tools": "^2.7.2",
     "history": "^4.6.0",
     "isomorphic-fetch": "^2.2.1",
-    "moment": "^2.19.1",
+    "moment": "^2.24.0",
     "mongodb": "^2.2.33",
     "node-sass": "^4.5.1",
     "prop-types": "^15.5.8",
